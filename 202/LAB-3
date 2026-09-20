@@ -1,0 +1,308 @@
+/* =====================================================
+   DBMS ASSIGNMENT - 3
+   IIT PATNA
+   ===================================================== */
+
+
+/* -----------------------------------------------------
+   1. CREATE DATABASE
+   ----------------------------------------------------- */
+
+CREATE DATABASE college_db;
+
+USE college_db;
+
+
+/* -----------------------------------------------------
+   2. CREATE FACULTY TABLE
+   ----------------------------------------------------- */
+
+CREATE TABLE Faculty (
+    FID INT PRIMARY KEY,
+    FName VARCHAR(50) NOT NULL
+);
+
+
+/* -----------------------------------------------------
+   3. CREATE STUDENT TABLE
+   ----------------------------------------------------- */
+
+CREATE TABLE Student (
+    SID INT PRIMARY KEY,
+    SName VARCHAR(50) NOT NULL,
+    Age INT,
+    Major VARCHAR(50),
+    Level VARCHAR(10)
+);
+
+
+/* -----------------------------------------------------
+   4. CREATE CLASS TABLE
+   ----------------------------------------------------- */
+
+CREATE TABLE Class (
+    CName VARCHAR(50) PRIMARY KEY,
+    Room VARCHAR(20),
+    MeetsAt VARCHAR(30),
+    FID INT,
+    
+    FOREIGN KEY (FID) REFERENCES Faculty(FID)
+);
+
+
+/* -----------------------------------------------------
+   5. CREATE ENROLLED TABLE
+   ----------------------------------------------------- */
+
+CREATE TABLE Enrolled (
+    SID INT,
+    CName VARCHAR(50),
+    
+    PRIMARY KEY (SID, CName),
+    
+    FOREIGN KEY (SID) REFERENCES Student(SID),
+    FOREIGN KEY (CName) REFERENCES Class(CName)
+);
+
+
+/* =====================================================
+   INSERT SAMPLE DATA
+   ===================================================== */
+
+
+/* -----------------------------------------------------
+   FACULTY DATA
+   ----------------------------------------------------- */
+
+INSERT INTO Faculty (FID, FName) VALUES
+(1, 'I. Teach'),
+(2, 'A. Kumar'),
+(3, 'R. Sharma'),
+(4, 'P. Singh'),
+(5, 'S. Verma');
+
+
+/* -----------------------------------------------------
+   STUDENT DATA
+   ----------------------------------------------------- */
+
+INSERT INTO Student (SID, SName, Age, Major, Level) VALUES
+(101, 'John', 20, 'Computer Science', 'JR'),
+(102, 'Alice', 22, 'History', 'SR'),
+(103, 'Bob', 21, 'Mathematics', 'JR'),
+(104, 'Carol', 23, 'History', 'SR'),
+(105, 'David', 19, 'Computer Science', 'JR'),
+(106, 'Emma', 24, 'Physics', 'SR'),
+(107, 'Frank', 20, 'Economics', 'JR'),
+(108, 'Grace', 21, 'Computer Science', 'JR'),
+(109, 'Henry', 22, 'Physics', 'SR'),
+(110, 'Irene', 20, 'History', 'JR');
+
+
+/* -----------------------------------------------------
+   CLASS DATA
+   ----------------------------------------------------- */
+
+INSERT INTO Class (CName, Room, MeetsAt, FID) VALUES
+('Database Systems', 'R128', 'Monday 10:00', 1),
+('Operating Systems', 'R129', 'Monday 10:00', 2),
+('Data Structures', 'R130', 'Tuesday 11:00', 1),
+('Mathematics', 'R131', 'Wednesday 09:00', 3),
+('History of India', 'R128', 'Thursday 10:00', 4),
+('Physics', 'R132', 'Friday 10:00', 5);
+
+
+/* -----------------------------------------------------
+   ENROLLMENT DATA
+   ----------------------------------------------------- */
+
+INSERT INTO Enrolled (SID, CName) VALUES
+
+-- John
+(101, 'Database Systems'),
+(101, 'Operating Systems'),
+(101, 'Data Structures'),
+
+-- Alice
+(102, 'History of India'),
+
+-- Bob
+(103, 'Database Systems'),
+(103, 'Mathematics'),
+
+-- Carol
+(104, 'History of India'),
+(104, 'Physics'),
+
+-- David
+(105, 'Database Systems'),
+(105, 'Data Structures'),
+
+-- Emma
+(106, 'Physics'),
+
+-- Frank
+(107, 'Operating Systems'),
+
+-- Grace
+(108, 'Database Systems'),
+(108, 'Data Structures'),
+(108, 'Mathematics'),
+
+-- Henry
+(109, 'Physics'),
+
+-- Irene
+-- intentionally not enrolled in any class
+(110, 'History of India');
+
+
+/* =====================================================
+   QUESTIONS
+   ===================================================== */
+
+
+/* -----------------------------------------------------
+   Q1. Find names of all Juniors (JR) who are enrolled
+       in a class taught by I. Teach.
+   ----------------------------------------------------- */
+
+SELECT DISTINCT S.SName
+FROM Student S
+JOIN Enrolled E
+    ON S.SID = E.SID
+JOIN Class C
+    ON E.CName = C.CName
+JOIN Faculty F
+    ON C.FID = F.FID
+WHERE S.Level = 'JR'
+AND F.FName = 'I. Teach';
+
+
+/* -----------------------------------------------------
+   Q2. Find age of the oldest student who is either
+       a History major OR enrolled in a course taught
+       by I. Teach.
+   ----------------------------------------------------- */
+
+SELECT MAX(S.Age) AS Oldest_Age
+FROM Student S
+WHERE S.Major = 'History'
+OR S.SID IN
+(
+    SELECT E.SID
+    FROM Enrolled E
+    JOIN Class C
+        ON E.CName = C.CName
+    JOIN Faculty F
+        ON C.FID = F.FID
+    WHERE F.FName = 'I. Teach'
+);
+
+
+/* -----------------------------------------------------
+   Q3. Find names of all classes that either meet in
+       room R128 OR have five or more students enrolled.
+   ----------------------------------------------------- */
+
+SELECT C.CName
+FROM Class C
+LEFT JOIN Enrolled E
+    ON C.CName = E.CName
+GROUP BY C.CName, C.Room
+HAVING C.Room = 'R128'
+OR COUNT(E.SID) >= 5;
+
+
+/* -----------------------------------------------------
+   Q4. Find names of students who are enrolled in two
+       classes that meet at the same time.
+   ----------------------------------------------------- */
+
+SELECT DISTINCT S.SName
+FROM Student S
+JOIN Enrolled E1
+    ON S.SID = E1.SID
+JOIN Class C1
+    ON E1.CName = C1.CName
+JOIN Enrolled E2
+    ON S.SID = E2.SID
+JOIN Class C2
+    ON E2.CName = C2.CName
+WHERE C1.CName <> C2.CName
+AND C1.MeetsAt = C2.MeetsAt;
+
+
+/* -----------------------------------------------------
+   Q5. Find names of faculty members for whom the
+       combined enrollment of courses they teach
+       is less than five.
+   ----------------------------------------------------- */
+
+SELECT F.FName
+FROM Faculty F
+LEFT JOIN Class C
+    ON F.FID = C.FID
+LEFT JOIN Enrolled E
+    ON C.CName = E.CName
+GROUP BY F.FID, F.FName
+HAVING COUNT(E.SID) < 5;
+
+
+/* -----------------------------------------------------
+   Q6. Print Level and average age for each Level.
+   ----------------------------------------------------- */
+
+SELECT Level,
+       AVG(Age) AS Average_Age
+FROM Student
+GROUP BY Level;
+
+
+/* -----------------------------------------------------
+   Q7. Print Level and average age for all Levels
+       except JR.
+   ----------------------------------------------------- */
+
+SELECT Level,
+       AVG(Age) AS Average_Age
+FROM Student
+WHERE Level <> 'JR'
+GROUP BY Level;
+
+
+/* -----------------------------------------------------
+   Q8. Find names of students who are enrolled in the
+       maximum number of classes.
+   ----------------------------------------------------- */
+
+SELECT S.SName
+FROM Student S
+LEFT JOIN Enrolled E
+    ON S.SID = E.SID
+GROUP BY S.SID, S.SName
+HAVING COUNT(E.CName) =
+(
+    SELECT MAX(Class_Count)
+    FROM
+    (
+        SELECT S2.SID,
+               COUNT(E2.CName) AS Class_Count
+        FROM Student S2
+        LEFT JOIN Enrolled E2
+            ON S2.SID = E2.SID
+        GROUP BY S2.SID
+    ) AS X
+);
+
+
+/* -----------------------------------------------------
+   Q9. Find names of students who are not enrolled
+       in any class.
+   ----------------------------------------------------- */
+
+SELECT S.SName
+FROM Student S
+LEFT JOIN Enrolled E
+    ON S.SID = E.SID
+WHERE E.SID IS NULL;
