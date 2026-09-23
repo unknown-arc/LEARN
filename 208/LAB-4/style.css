@@ -1,0 +1,133 @@
+/* =========================================================
+   Temple Tourism Webpage - Stylesheet
+   ========================================================= */
+
+/* Reset some default spacing so the layout is predictable */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base page styling */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fdf6ec;
+  color: #333333;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   Header Section
+   ========================================================= */
+
+.site-header {
+  background-color: #8b1e1e;
+  color: #ffffff;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.site-header h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.site-header .subtitle {
+  font-size: 16px;
+  color: #f3d9a4;
+}
+
+
+/* =========================================================
+   Introduction Section
+   ========================================================= */
+
+.intro {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #444444;
+}
+
+
+/* =========================================================
+   Temple Gallery Section
+   This is the CSS Grid gallery that lays out all 10 temple
+   cards in a responsive grid, similar to a photo gallery.
+   ========================================================= */
+
+.temple-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 30px;
+  max-width: 1300px;
+  margin: 20px auto 50px auto;
+  padding: 0 20px;
+}
+
+.temple-card {
+  background-color: #ffffff;
+  border: 1px solid #e0d3b8;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Large gallery-style photo at the top of each card */
+.temple-photo {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.temple-card h2 {
+  font-size: 20px;
+  color: #8b1e1e;
+  margin-bottom: 8px;
+}
+
+.temple-card .location {
+  font-size: 14px;
+  color: #555555;
+  margin-bottom: 12px;
+}
+
+.temple-card .significance {
+  font-size: 14px;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+.temple-card .travel-details {
+  list-style-type: none;
+  border-top: 1px solid #e0d3b8;
+  padding-top: 12px;
+}
+
+.temple-card .travel-details li {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #444444;
+}
+
+
+/* =========================================================
+   Footer Section
+   ========================================================= */
+
+.site-footer {
+  background-color: #8b1e1e;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
