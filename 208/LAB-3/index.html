@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Week 2 — HTML5 — Lecture 4</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=Lora:wght@400;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;700&family=Oswald:wght@400;700&family=Playfair+Display:wght@400;700&family=Poppins:wght@400;700&family=Raleway:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <h1>Week 2 — HTML5</h1>
+        <h1 class="h1-1">Lecture 4 — HTML Fundamentals</h1>
+
+        <h2 class="heading-A">A. Introduction to HTML (Poppins)</h2>
+            <ul class="ul-1">
+                <li class="li-1"><b>What is HTML?</b> HyperText Markup Language — a markup language, not a programming language. It describes structure and content, not logic.</li>
+                <li class="li-1"><b>Role of HTML in Web development</b> — HTML is the structure/content layer only. It says nothing about color, layout, or interactivity — that's CSS's and JavaScript's job, coming in later weeks.</li>
+                <li class="li-1"><b>HTML vs. CSS vs. JavaScript</b> — HTML = structure, CSS = presentation, JS = behavior. Keep this three-way split visible all semester; almost every later topic is "which of these three am I touching right now."</li>
+                <li class="li-1"><b>HTML as a markup language</b> — a markup language tells a browser how to present or organize information; a programming language tells a computer how to compute something. HTML has no variables, no loops, no logic.</li>
+                <li class="li-1"><b>HTML document vs. Web page</b> — the .html file is the document (what you edit); the "web page" is what the browser renders from it. Same edit/preview split introduced in Week 1's Setup discussion.</li>
+                <li class="li-1"><b>HTML5 and the evolution of HTML</b> — HTML (1991) → HTML 4.01 (1999) → XHTML (a stricter, XML-based dead end) → HTML5 (2014), which added semantic elements, native audio/video, canvas, and new input types. HTML is now a "living standard" maintained by WHATWG — continuously updated rather than released in discrete numbered versions.</li>
+            </ul>
+
+        <h2 class="heading-B">B. Basic HTML Document Structure (Merriweather)</h2>
+            <p class="p-1">The full boilerplate, run once end to end, then broken apart:</p>
+            <div class="div-1">&lt;!doctype html&gt;
+                &lt;html lang="en"&gt;
+                &lt;head&gt;
+                &lt;meta charset="utf-8"&gt;
+                &lt;title&gt;My Page&lt;/title&gt;
+                &lt;/head&gt;
+                &lt;body&gt;
+                &lt;!-- page content goes here --&gt;
+                &lt;/body&gt;
+                &lt;/html&gt;
+            </div>
+            <table class="table-1">
+                <tr>
+                    <th class="th-1">Element</th>
+                    <th class="th-1">Role</th>
+                </tr>
+                <tr>
+                    <td class="td-1">&lt;!doctype html&gt;</td>
+                    <td class="td-1">Required preamble; ensures the browser renders in standards mode.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">&lt;html&gt;</td>
+                    <td class="td-1">The root element — wraps everything; lang sets the page's primary language.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">&lt;head&gt;</td>
+                    <td class="td-1">Container for metadata — nothing here is shown directly to visitors.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">&lt;title&gt;</td>
+                    <td class="td-1">Text shown in the browser tab and used when bookmarking.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">&lt;body&gt;</td>
+                    <td class="td-1">Everything visitors actually see.</td>
+                </tr>
+            </table>
+            <ul class="ul-1">
+                <li class="li-1"><b>Comments</b> — &lt;!-- text --&gt; is never rendered; it's for developers reading the source only. Not truly hidden — visible via View Page Source.</li>
+            </ul>
+
+        <h2 class="heading-C">C. HTML Elements (Roboto Slab)</h2>    
+            <ul class="ul-1">
+                <li class="li-1"><b>What is an element?</b> A start tag, content, and end tag together — the basic building block of a page.</li>
+                <li class="li-1"><b>Opening and closing tags</b> — <code class="code-1">&lt;p&gt;</code> opens, <code class="code-1">&lt;/p&gt;</code> closes; forgetting the closing tag is the single most common beginner error.</li>
+                <li class="li-1"><b>Empty/void elements</b> — elements with no content to wrap, so no closing tag: <code class="code-1">&lt;br&gt;</code>, <code class="code-1">&lt;hr&gt;</code>, <code class="code-1">&lt;img&gt;</code>, <code class="code-1">&lt;input&gt;</code>, <code class="code-1">&lt;meta&gt;</code>, <code class="code-1">&lt;link&gt;</code>.</li>
+                <li class="li-1"><b>Nested elements</b> — elements placed inside other elements; nesting must not cross (close tags in the reverse order you opened them).</li>
+                <li class="li-1"><b>Parent and child elements</b> — the containing element is the parent, the contained one is the child. This vocabulary will resurface constantly once JavaScript starts walking the DOM in Week 6.</li>
+                <li class="li-1"><b>Block-level vs. inline elements — conceptual introduction only:</b> block elements (p, div, h1–h6) start on a new line and take the full available width; inline elements (span, a, strong) flow within a line of text. Full layout consequences are a CSS topic, Weeks 3–4 — here, just recognize the two categories.</li>
+            </ul>
+
+        <h2 class="heading-D">D. HTML Attributes (Oswald)</h2>
+            <ul class="ul-1">
+                <li class="li-1"><b>What is an attribute?</b> A name="value" pair inside a start tag that configures or describes the element.</li>
+                <li class="li-1"><b>Global attributes</b> — available on virtually any element: id, class, title, style, data-*, lang, hidden.</li>
+            </ul>    
+            <table class="table-1">
+                <tr>
+                    <th class="th-1">Attribute</th>
+                    <th class="th-1">Use</th>
+                </tr>
+                <tr>
+                    <td class="td-1">id</td>
+                    <td class="td-1">A unique identifier for one specific element on the page — used for in-page links, CSS, and JavaScript targeting.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">class</td>
+                    <td class="td-1">A reusable label; many elements can share the same class, and one element can carry several classes.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">title</td>
+                    <td class="td-1">Tooltip text shown on mouse-over (covered already for images — works the same way on any element).</td>
+                </tr>
+                <tr>
+                    <td class="td-1">style</td>
+                    <td class="td-1">Inline CSS — brief mention only. Real styling is external stylesheets, starting Week 3; treat inline style as a last resort, not a habit.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">data-*</td>
+                    <td class="td-1">Custom data attributes for storing extra information JavaScript can read later, e.g. data-user-id="42".</td>
+                </tr>
+            </table>
+
+        <h2 class="heading-E">E. Text Content (Playfair Display)</h2>
+            <p class="p-1">Headings (<code class="code-1">&lt;h1&gt;</code>–<code class="code-1">&lt;h6&gt;</code>), paragraphs (<code class="code-1">&lt;p&gt;</code>), line breaks (<code class="code-1">&lt;br&gt;</code>), and horizontal rules (<code class="code-1">&lt;hr&gt;</code>) were introduced in the Beginning HTML material — recap briefly, then focus class time on the semantic point below.</p>
+            <ul class="ul-1">
+            <li class="li-1"><code class="code-1">&lt;strong&gt;</code> vs. <code class="code-1">&lt;em&gt;</code> over <code class="code-1">&lt;b&gt;</code> and <code class="code-1">&lt;i&gt;</code>: <code class="code-1">&lt;strong&gt;</code> and <code class="code-1">&lt;em&gt;</code> signal genuine importance/emphasis to screen readers and search engines; <code class="code-1">&lt;b&gt;</code> and <code class="code-1">&lt;i&gt;</code> are purely visual with no such signal.</li>
+            </ul>        
+            <div class="div-2">Why semantic text elements are preferred: the visual result can look identical, but only the semantic version tells assistive technology and machines that the meaning matters, not just the appearance.</div>
+
+        <h2 class="heading-F">F. Hyperlinks (Raleway)</h2>
+            <ul class="ul-1">
+            <li class="li-1"><code class="code-1">&lt;a&gt;</code> <b>element</b> — links pages, text, or images to another destination via href.</li>
+            </ul>
+            <div class="div-1">&lt;a href="about.html"&gt;About&lt;/a&gt;
+                &lt;a href="https://example.com"&gt;External site&lt;/a&gt;
+                &lt;a href="#section2"&gt;Jump to Section 2&lt;/a&gt;
+                &lt;a href="mailto:prof@example.com"&gt;Email&lt;/a&gt;
+                &lt;a href="tel:+911234567890"&gt;Call&lt;/a&gt;
+            </div>
+            <ul class="ul-1">
+                <li class="li-1"><b>Absolute URLs</b> — the full address, including https://; needed for linking off-site.</li>
+                <li class="li-1"><b>Relative URLs</b> — a path relative to the current file; used for linking between pages of the same site (see Week 1's File Paths rules).</li>
+                <li class="li-1"><b>Linking to sections within a page</b> — give the target element an id, then link to it with href="#that-id".</li>
+                <li class="li-1"><b>Opening links in a new tab</b> — target="_blank".</li>
+                <li class="li-1"><b>mailto: and tel: links</b> — open the user's email client or phone dialer directly.</li>
+            </ul>
+            <div class="div-2">Security consideration: target="_blank" without rel="noopener noreferrer" lets the new tab's page control the original tab via window.opener — a known phishing vector called reverse tabnabbing. Always pair the two.</div>
+        
+        <h2 class="heading-G">G. Images (Lora)</h2>
+            <p class="p-1">&lt;img&gt;, src, alt, width/height, relative vs. absolute paths, and images-as-links were covered in the Beginning HTML material. Recap the pattern once, then restate the two distinct reasons alt matters: screen readers read it aloud, and it displays if the image fails to load.</p>
+        
+        <h2 class="heading-H">H. Lists (Montserrat)</h2>
+            <p class="p-1">&lt;ul&gt;/&lt;ol&gt;/&lt;li&gt; and nesting were covered previously. New this lecture:</p>
+            <ul class="ul-1">
+            <li class="li-1"><b>Description lists</b> — &lt;dl&gt;, &lt;dt&gt; (term), &lt;dd&gt; (definition) — for term/definition pairs, like a glossary.</li>
+            </ul>
+            <div class="div-1">&lt;dl&gt;
+                &lt;dt&gt;HTML&lt;/dt&gt;
+                &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+                &lt;dt&gt;CSS&lt;/dt&gt;
+                &lt;dd&gt;Cascading Style Sheets&lt;/dd&gt;
+                &lt;/dl&gt;
+            </div>
+        
+        <h2 class="heading-I">I. Tables (Bitter)</h2>
+            <p class="p-1">&lt;table&gt;/&lt;tr&gt;/&lt;th&gt;/&lt;td&gt; and &lt;caption&gt; were covered previously. New this lecture:</p>
+            <table class="table-1">
+                <tr>
+                    <th class="th-1">Element / Attribute</th>
+                    <th class="th-1">Purpose</th>
+                </tr>
+                <tr>
+                    <td class="td-1">&lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt;</td>
+                    <td class="td-1">Group header rows, body rows, and footer rows — lets browsers and assistive tech distinguish the table's regions.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">colspan</td>
+                    <td class="td-1">Merges a cell across multiple columns.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">rowspan</td>
+                    <td class="td-1">Merges a cell across multiple rows.</td>
+                </tr>
+                <tr>
+                    <td class="td-1">scope (basic accessibility)</td>
+                    <td class="td-1">On a &lt;th&gt;, declares whether it heads a column or a row, so screen readers can announce the right header for each data cell.</td>
+                </tr>            
+            </table>        
+            <p class="p-1">End-of-lecture target: students should be able to construct a complete basic HTML document containing text → links → images → lists → tables, unaided.</p>
+    
+    </body>
+
+</html>
