@@ -1,0 +1,8 @@
+Class Activity
+
+Subject: CDA 208 Web Development and App Design
+Dates: 23 Sept, 2026
+
+LAB-4
+* Design an attractive Temple Tourism Webpage showcasing 10 famous temples of India. 
+* The webpage should provide visitors with basic information about each temple, its location, significance, and travel-related details.

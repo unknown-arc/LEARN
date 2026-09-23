@@ -1,0 +1,10 @@
+*Class Activity*
+
+Subject: *CDA 208 Web Development and App Design*
+Dates: *16 Sept, 2026*
+
+*LAB-3*
+* Explore and use fronts in the site, suggested - https://fonts.google.com/
+
+Resourse (Optional):
+* Week2_HTML5_Full_Teaching_Content.docx

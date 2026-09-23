@@ -1,0 +1,10 @@
+*Class Activity*
+
+Subject: *CDA 208 Web Development and App Design*
+Dates: *9 Sept, 2026*
+
+*LAB-2*
+* Style the html file via inline, internal or external css.
+
+Resouse:
+* Week2_HTML5_Full_Teaching_Content.docx
