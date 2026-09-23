@@ -1,0 +1,156 @@
+body {
+  font-family:'Times New Roman', Times, serif;
+  max-width:820px;
+  margin:0 auto;
+  padding:24px 32px 60px;
+  color:#000;
+  background:#ffffff;
+}
+
+/* h1: page title (first) vs. lecture/tutorial headers (rest) */
+body > h1 {
+  color:#76ABEE;
+  font-family:'Times New Roman', Times, serif;
+  font-size:24px;
+  margin:32px 0 4px;
+}
+
+body > h1:first-of-type {
+  color:#000;
+  font-family:'Times New Roman', Times, serif;
+  font-size:28px;
+  margin:0 0 4px;
+}
+
+/* h2: subtitle (first) vs. section headers (default) vs. Lab header (last) */
+body > h2 {
+  color:#76ABEE;
+  font-family:'Times New Roman', Times, serif;
+  font-size:19px;
+  margin:22px 0 8px;
+}
+
+body > h2:first-of-type {
+  color:#000;
+  font-family:'Times New Roman', Times, serif;
+  font-size:20px;
+  margin:0 0 6px;
+  font-weight:bold;
+}
+
+body > h2:last-of-type {
+  color:#76ABEE;
+  font-family:'Times New Roman', Times, serif;
+  font-size:22px;
+  margin:32px 0 8px;
+}
+
+/* h3: iframe callout heading (first) vs. Lab "Part N" headers (rest) */
+h3 {
+  color:#76ABEE;
+  font-family:'Times New Roman', Times, serif;
+  font-size:17px;
+  margin:18px 0 6px;
+}
+
+h3:first-of-type {
+  color:#76ABEE;
+  font-family:'Times New Roman', Times, serif;
+  font-size:16px;
+  margin:16px 0 6px;
+}
+
+/* p: intro paragraph (first) vs. body paragraphs (default) vs. the two
+   "Example ...:" captions in the Tutorial section (19th/20th <p>) */
+body > p {
+  font-family:'Times New Roman', Times, serif;
+  font-size:14px;
+  line-height:1.55;
+  margin:0 0 14px;
+}
+
+body > p:first-of-type {
+  font-family:'Times New Roman', Times, serif;
+  font-size:15px;
+  line-height:normal;
+  margin:0 0 14px;
+}
+
+body > p:nth-of-type(19),
+body > p:nth-of-type(20) {
+  font-family:'Times New Roman', Times, serif;
+  font-size:14px;
+  line-height:normal;
+  margin:12px 0 4px;
+}
+
+hr {
+  border:none;
+  border-top:1px solid #000;
+  margin:0 0 20px;
+}
+
+ul {
+  font-family:'Times New Roman', Times, serif;
+  font-size:14px;
+  line-height:1.55;
+  margin:0 0 16px;
+  padding-left:24px;
+}
+
+li {
+  margin-bottom:4px;
+}
+
+pre {
+  font-family:Consolas, 'Courier New', monospace;
+  font-size:13px;
+  background:#f0f0f0;
+  border:1px solid #000;
+  padding:14px 18px;
+  margin:8px 0 20px;
+  white-space:pre;
+  overflow-x:auto;
+  line-height:1.5;
+}
+
+table {
+  border-collapse:collapse;
+  width:100%;
+  font-size:13px;
+  font-family:'Times New Roman', Times, serif;
+  margin:6px 0 20px;
+}
+
+th {
+  background:#92acd4;
+  font-weight:bold;
+  text-align:left;
+  padding:10px 12px;
+  border:1px solid #000;
+}
+
+td {
+  border:1px solid #000;
+  padding:10px 12px;
+  text-align:left;
+  vertical-align:top;
+}
+
+code {
+  font-family:Consolas, 'Courier New', monospace;
+  background:#f2f2f2;
+  padding:1px 4px;
+  font-size:13px;
+}
+
+blockquote {
+  border-left:3px solid #000;
+  margin:6px 0 18px 4px;
+  padding:2px 0 2px 16px;
+  font-style:italic;
+  font-weight:bold;
+  font-family:'Times New Roman', Times, serif;
+  font-size:14px;
+  line-height:1.5;
+}
