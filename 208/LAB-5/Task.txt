@@ -1,0 +1,191 @@
+Assignment: Incredible India – Temple Tourism Webpage
+
+Objective: Design an attractive and responsive Temple Tourism Website titled “Sacred India – Explore the Timeless Temples of India” using HTML5 and CSS3.
+
+The webpage should showcase 10 famous temples of India through visually appealing cards, Flexbox layouts, image galleries, backgrounds, typography, and hover effects. The final design should resemble a modern tourism webpage rather than a simple information page.
+
+
+Webpage Design Requirements
+1. Header and Navigation Bar
+
+Create an attractive header containing the website name or logo.
+
+Include navigation links:   Home | Explore Temples | Gallery | Travel Guide | Contact
+
+Use Flexbox to arrange the logo and navigation menu horizontally.
+
+The navigation bar should include:
+
+Background color
+Proper spacing
+Link styling
+Hover effects
+Optional sticky positioning
+
+
+2. Hero Section – “Sacred India”
+
+Create a large hero section using a beautiful temple image as the background.
+
+Display overlay content such as:
+
+Discover the Sacred Heritage of India
+Explore magnificent temples where history, architecture, culture, and spirituality come together.
+
+Add an “Explore Temples” button.
+
+Use CSS properties such as:
+
+background-image
+background-size
+background-position
+min-height
+Flexbox alignment
+Text shadow
+Button hover effect
+
+
+3. Introduction – Journey Through India's Temple Heritage
+
+Create a short introductory section explaining India's rich temple heritage.
+
+Use a two-column Flexbox layout:
+
+Left side: Temple/travel image
+Right side: Heading and introduction
+
+The image should have rounded corners and a subtle shadow.
+
+
+4. Explore 10 Famous Temples – Card Layout
+
+This should be the main section of the webpage.
+
+Create 10 attractive temple cards using Flexbox with flex-wrap.
+
+Each card must contain:
+
+Temple image
+Temple name
+State/location
+Short description
+One interesting fact
+Explore More button/link
+
+When the mouse moves over a card, create an effect such as:
+
+Card moves slightly upward
+Shadow becomes stronger
+Image slightly enlarges
+Button changes color
+
+
+5. Temple Image Gallery – Flexbox Cards
+
+Create a visually attractive Temple Gallery using Flexbox.
+
+Do not simply place images one after another.
+
+Each gallery item should be designed as an image card containing:
+
+Temple image
+Temple name
+Location
+Optional short caption
+
+Each gallery card should contain an image with:
+
+Rounded corners
+Box shadow
+Hover effect
+Image zoom effect
+Smooth CSS transition
+
+When the user hovers over an image card:
+
+Slightly enlarge the image
+Display or emphasize the temple name
+Increase card shadow
+Change border or background appearance
+
+
+6. Featured Temple Section
+
+Choose one temple as the featured destination.
+
+Create a large section using Flexbox. On smaller screens, the image and content should appear vertically.
+
+
+7. Why Explore Indian Temples?
+
+Create four small information cards for:
+
+Architecture | Heritage | Culture | Travel Experience
+
+Arrange these cards using Flexbox.
+
+Each card should contain:
+
+Icon or simple symbol
+Heading
+Short description
+
+Use different subtle background colors or borders to distinguish the cards.
+
+
+8. Travel Guide Section
+
+Create a useful travel-information section containing:
+
+Best time to visit
+Transportation
+Accommodation
+Clothing/visitor guidelines
+Photography information
+Nearby attractions
+
+Present the information using attractive information cards rather than only paragraphs.
+
+
+9. Plan Your Temple Journey
+
+Create a styled travel enquiry form containing:
+
+Full Name
+Email
+Select Temple/Destination
+Travel Date
+Number of Visitors
+City
+Message
+Plan My Journey button
+
+Style:
+
+input
+select
+textarea
+labels
+submit button
+
+Use rounded borders, proper spacing, focus effects, and a visually distinct submit button.
+
+
+10. Footer
+
+Create a professional footer containing:
+
+Sacred India
+
+Short website description
+
+Quick Links:
+Home | Temples | Gallery | Travel Guide | Contact
+
+Popular Destinations for example: Kedarnath | Varanasi | Ayodhya | Puri | Tirupati
+
+Add:
+
+Contact information
+Social media links
+Copyright statement
