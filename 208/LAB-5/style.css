@@ -118,10 +118,60 @@ a {
     display: flex;
     align-items: center;
     overflow: hidden;
-    background:
-        linear-gradient(90deg, rgba(21, 29, 23, 0.82), rgba(21, 29, 23, 0.35), rgba(21, 29, 23, 0.08)),
-        url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Kedarnath%20Temple.jpg") center / cover;
     color: white;
+    isolation: isolate;
+}
+
+.hero-slideshow,
+.hero-slide {
+    position: absolute;
+    inset: 0;
+}
+
+.hero-slideshow {
+    z-index: -2;
+    background: #263129;
+}
+
+.hero-slide {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: heroFade 30s infinite;
+    transform: scale(1.03);
+}
+
+.hero-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(21, 29, 23, 0.82), rgba(21, 29, 23, 0.35), rgba(21, 29, 23, 0.08));
+}
+
+.hero-slide-1 {
+    background-image: url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Kedarnath%20Temple.jpg");
+    animation-delay: 0s;
+}
+
+.hero-slide-2 {
+    background-image: url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Kashi%20Vishwanath%20Temple%20in%202025.jpg");
+    animation-delay: 6s;
+}
+
+.hero-slide-3 {
+    background-image: url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Meenakshi%20Temple.jpg");
+    animation-delay: 12s;
+}
+
+.hero-slide-4 {
+    background-image: url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Somnath%20Temple.jpg");
+    animation-delay: 18s;
+}
+
+.hero-slide-5 {
+    background-image: url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Konark%20Temple-Sun%20Temple.jpg");
+    animation-delay: 24s;
 }
 
 .hero::after {
@@ -801,6 +851,15 @@ a {
     border-top: 1px solid rgba(255,255,255,.1);
     color: #89958c;
     font-size: .68rem;
+}
+
+@keyframes heroFade {
+    0%, 18% {
+        opacity: 1;
+    }
+    20%, 100% {
+        opacity: 0;
+    }
 }
 
 @keyframes rise {
