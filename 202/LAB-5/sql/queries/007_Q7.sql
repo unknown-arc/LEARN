@@ -1,4 +1,4 @@
--- Q7. Print (Level + average age) of students for that Level, for all Levels except JR.
+-- Q7. Print (Level + average age) of students, for all Levels except JR.
 
 SELECT level, AVG(age) AS average_age
 FROM Student
