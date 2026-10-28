@@ -32,8 +32,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate academic subjects
-        run: python3 scripts/get_subjects.py
+      - name: Generate subject and lab data
+        run: |
+          python3 scripts/get_subjects.py
+          python3 scripts/get_labs.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
