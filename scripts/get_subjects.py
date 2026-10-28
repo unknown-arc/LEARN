@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ACADEMIC_DIR = ROOT / "Academic"
+ACADEMIC_DIR = ROOT / "ACADEMIC"
 OUTPUT_FILE = ACADEMIC_DIR / "subjects.json"
 
 
