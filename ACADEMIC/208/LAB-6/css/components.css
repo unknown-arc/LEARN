@@ -1,0 +1,289 @@
+/* ==========================================================
+   components.css — cards, form controls, buttons, results
+   Shapes: squares (inputs/checkbox/logo), rectangles (cards,
+   buttons, results), circles (number badge).
+   ========================================================== */
+
+/* ---------- Card ---------- */
+.assignment-card {
+  min-width: 0;
+  padding: var(--pad);
+  background: var(--white);
+  color: var(--black);
+  border: var(--border-heavy) solid var(--black);
+  border-radius: 0;
+  box-shadow: var(--shadow);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.assignment-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 var(--black);
+}
+
+/* completed state: stays black/white — number circle inverts */
+.assignment-card.done { box-shadow: var(--shadow), inset 0 0 0 4px var(--white), inset 0 0 0 6px var(--black); }
+.assignment-card.done .number { background: var(--black); color: var(--white); }
+.assignment-card.done h2 { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+/* circle badge */
+.number {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  background: var(--white);
+  color: var(--black);
+  border: var(--border) solid var(--black);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  transition: background .15s ease, color .15s ease;
+}
+
+/* rectangle tag */
+.tag {
+  padding: 6px 10px;
+  background: var(--white);
+  color: var(--black);
+  border: var(--border) solid var(--black);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+h2 {
+  margin: 0 0 10px;
+  font: 700 22px/1.2 var(--font-display);
+  letter-spacing: -.6px;
+}
+
+.assignment-card > p:not(.result) {
+  min-height: 42px;
+  margin: 0 0 22px;
+  color: var(--black);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ---------- Form controls ---------- */
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--black);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+
+input[type="number"],
+select {
+  width: 100%;
+  min-width: 0;
+  height: var(--control-h);
+  padding: 0 12px;
+  background: var(--white);
+  color: var(--black);
+  border: var(--border) solid var(--black);
+  border-radius: 0;
+  font: 500 15px var(--font-mono);
+  outline: none;
+  transition: box-shadow .12s ease, transform .12s ease;
+}
+
+input[type="number"]::placeholder { color: var(--black); opacity: .35; }
+
+input[type="number"]:focus,
+select:focus {
+  box-shadow: var(--shadow-sm);
+  transform: translate(-2px, -2px);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23000' stroke-width='2.4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.field-row { margin-bottom: 14px; }
+
+.two-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.two-fields label { line-height: 1.4; min-height: 16px; }
+
+/* ---------- Button (rectangle) ---------- */
+.run-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 14px;
+  padding: 0 16px;
+  height: var(--control-h);
+  background: var(--white);
+  color: var(--black);
+  border: var(--border-heavy) solid var(--black);
+  border-radius: 0;
+  box-shadow: var(--shadow-sm);
+  font: 700 14px var(--font-display);
+  letter-spacing: .2px;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease;
+}
+
+.run-button:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.run-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--black);
+}
+
+.run-button:focus-visible,
+summary:focus-visible,
+.complete:focus-within {
+  outline: var(--border) dashed var(--black);
+  outline-offset: 3px;
+}
+
+.run-button span {
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 400;
+  transition: transform .15s ease;
+}
+.run-button:hover span { transform: translateX(4px); }
+
+/* ---------- Result (rectangle) ---------- */
+.result {
+  margin: 0;
+  padding: 0;
+  background: var(--white);
+  color: var(--black);
+  border-radius: 0;
+  font: 500 13px/1.7 var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.result:not(:empty) {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: var(--border) solid var(--black);
+  border-left-width: 10px; /* solid bar marks a result */
+}
+
+/* error: same palette, dashed border so it is distinguishable without colour */
+.result.error:not(:empty) {
+  border-style: dashed;
+  border-left-style: dashed;
+  border-left-width: var(--border);
+}
+.result.error:not(:empty)::before { content: "! "; font-weight: 700; }
+
+.output-list { white-space: pre-line; }
+
+/* ---------- Details / logic ---------- */
+details {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: var(--border) solid var(--black);
+  font-size: 13px;
+}
+
+summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  list-style: none;
+}
+summary::-webkit-details-marker { display: none; }
+
+/* small square toggle */
+summary::before {
+  content: "+";
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: var(--border) solid var(--black);
+  font: 700 14px/1 var(--font-mono);
+}
+details[open] > summary::before { content: "−"; background: var(--black); color: var(--white); }
+
+details code {
+  display: block;
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--white);
+  color: var(--black);
+  border: var(--border) solid var(--black);
+  border-radius: 0;
+  font: 400 12px/1.6 var(--font-mono);
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Completed checkbox (square) ---------- */
+.complete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: var(--border) solid var(--black);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.complete input {
+  appearance: none;
+  -webkit-appearance: none;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  background: var(--white);
+  border: var(--border) solid var(--black);
+  border-radius: 0;
+  cursor: pointer;
+  transition: background .12s ease;
+}
+
+.complete input:checked {
+  background-color: var(--black);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='%23fff' stroke-width='2.4'/%3E%3C/svg%3E");
+  background-size: 100% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}

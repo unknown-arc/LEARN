@@ -1,0 +1,23 @@
+/* ==========================================================
+   tokens.css — design tokens for the monochrome solid-shape theme
+   Palette: black on white only. Shapes: square, rectangle, circle.
+   ========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --black: #000;
+  --white: #fff;
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+
+  --border: 2px;
+  --border-heavy: 3px;
+  --shadow: 6px 6px 0 var(--black);
+  --shadow-sm: 3px 3px 0 var(--black);
+
+  --gap: 28px;
+  --pad: 24px;
+  --control-h: 46px;
+}

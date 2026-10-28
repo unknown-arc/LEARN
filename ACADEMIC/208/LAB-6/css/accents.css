@@ -1,0 +1,71 @@
+/* ==========================================================
+   accents.css — colour highlights layered on the black/white theme.
+   Borders, text and shadows stay black; only fills get colour.
+   Each card cycles through a palette via --accent.
+   ========================================================== */
+:root {
+  --yellow: #ffd93d;
+  --blue:   #74b9ff;
+  --green:  #5eead4;
+  --pink:   #ff9ecb;
+  --orange: #ffa94d;
+  --purple: #c4b0ff;
+  --red:    #ff7a7a;
+  --accent: var(--yellow);
+}
+
+.assignment-card:nth-child(6n + 1) { --accent: var(--yellow); }
+.assignment-card:nth-child(6n + 2) { --accent: var(--blue); }
+.assignment-card:nth-child(6n + 3) { --accent: var(--green); }
+.assignment-card:nth-child(6n + 4) { --accent: var(--pink); }
+.assignment-card:nth-child(6n + 5) { --accent: var(--orange); }
+.assignment-card:nth-child(6n + 6) { --accent: var(--purple); }
+
+/* logo mark */
+.brand-mark { background: var(--yellow); }
+
+/* circle number + rectangle tag */
+.number { background: var(--accent); }
+.tag    { background: var(--accent); }
+
+/* marker-style highlight under the title */
+h2 {
+  display: inline;
+  background: linear-gradient(transparent 58%, var(--accent) 58%);
+  padding: 0 2px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.card-top + h2 { margin-top: 0; }
+.assignment-card > p:not(.result) { margin-top: 12px; }
+
+/* button: solid accent, inverts to black on hover */
+.run-button { background: var(--accent); }
+.run-button:hover { background: var(--black); color: var(--white); }
+
+/* focus + select */
+input[type="number"]:focus,
+select:focus { background: color-mix(in srgb, var(--accent) 25%, white); box-shadow: var(--shadow-sm); }
+
+/* result: tinted rectangle with accent bar */
+.result:not(:empty) {
+  background: color-mix(in srgb, var(--accent) 30%, white);
+  border-left-color: var(--black);
+}
+.result.error:not(:empty) { background: var(--red); }
+
+/* logic block + toggle */
+details code { background: color-mix(in srgb, var(--accent) 22%, white); }
+details[open] > summary::before { background: var(--accent); color: var(--black); }
+
+/* checkbox */
+.complete input:checked {
+  background-color: var(--black);
+}
+.assignment-card.done .number { background: var(--black); color: var(--white); }
+.assignment-card.done { background: color-mix(in srgb, var(--accent) 12%, white); }
+.assignment-card.done .tag { background: var(--black); color: var(--white); }
+
+/* hover: card shadow picks up nothing but lifts; tag fills solid */
+.assignment-card:hover .number { transform: rotate(-8deg); }
+.number { transition: transform .15s ease, background .15s ease, color .15s ease; }

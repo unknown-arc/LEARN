@@ -1,0 +1,8 @@
+/* ==========================================================
+   theme.css — entry point for the monochrome solid-shape theme.
+   Link only this file from index.html.
+   ========================================================== */
+@import url('tokens.css');
+@import url('layout.css');
+@import url('components.css');
+@import url('accents.css');
