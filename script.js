@@ -1,12 +1,15 @@
-// Step 1: basic navigation interaction only.
-document.querySelectorAll(".nav-link").forEach((link) => {
-  link.addEventListener("click", () => {
-    document.querySelectorAll(".nav-link").forEach((item) => item.classList.remove("active"));
-    link.classList.add("active");
-  });
-});
+const cards = document.querySelectorAll(".choice-card");
 
-// The Academic card is a placeholder until its destination is decided.
-document.querySelector(".academic-card")?.addEventListener("click", (event) => {
-  event.preventDefault();
+cards.forEach((card) => {
+  card.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    const section = card.dataset.section;
+    const label = section === "academic" ? "ACADEMIC" : "INDEPENDENT";
+
+    // Replace this demo interaction with your real section URL when ready.
+    console.info(`${label} selected`);
+    card.classList.add("is-selected");
+    window.setTimeout(() => card.classList.remove("is-selected"), 220);
+  });
 });

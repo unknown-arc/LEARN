@@ -1,73 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="TROAL — Track Record of All Learning.">
-  <title>TROAL — Track Record of All Learning</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Choose between academic work and independent learning." />
+  <title>Learning Space</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <a class="brand" href="#home" aria-label="TROAL home">
-      <span class="brand-mark">T</span>
-      <span class="brand-name">TROAL<span>.</span><small>TRACK RECORD OF ALL LEARNING</small></span>
-    </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a class="nav-link active" href="#home">Home</a>
-      <a class="nav-link" href="#academics">Academics</a>
-      <a class="nav-link" href="#about">About</a>
-    </nav>
-    <a class="header-link" href="#about">About TROAL <span>↗</span></a>
-  </header>
+  <main class="landing" aria-label="Choose a learning category">
+    <p class="eyebrow">MY LEARNING SPACE <span aria-hidden="true">✳</span></p>
+    <h1>Pick your<br /><span>path.</span></h1>
 
-  <main id="home">
-    <section class="intro">
-      <div class="eyebrow"><span></span> TRACK RECORD OF ALL LEARNING</div>
-      <h1>A place to keep track<br>of <em>what you learn.</em></h1>
-      <p>Academic work, independent learning, and projects — organized in one place.</p>
-    </section>
-
-    <section class="content-section" id="academics" aria-labelledby="academics-title">
-      <div class="section-heading">
-        <div><p class="section-kicker">YOUR LEARNING RECORD</p><h2 id="academics-title">Academics</h2></div>
-        <span class="section-count">01 SECTION</span>
-      </div>
-      <a class="academic-card" href="#" aria-label="Open academic records">
-        <div class="academic-card-icon">A</div>
-        <div class="academic-card-content">
-          <span class="card-label">ACADEMIC WORKSPACE</span>
-          <h3>Academic subjects</h3>
-          <p>Keep subjects, assignments, practice tasks, and coursework organized by course.</p>
-          <span class="card-action">Explore academics <span>→</span></span>
-        </div>
-        <div class="academic-card-side" aria-hidden="true">
-          <div class="stack-card stack-back"></div><div class="stack-card stack-mid"></div>
-          <div class="stack-card stack-front"><span>101</span><i>•••</i><b></b><b></b><b></b></div>
-        </div>
-        <span class="card-arrow" aria-hidden="true">↗</span>
+    <div class="card-grid">
+      <a class="choice-card academic" href="#" data-section="academic" aria-label="Open Academic">
+        <span class="card-number">01 / STUDIES</span>
+        <span class="card-icon" aria-hidden="true">↗</span>
+        <span class="card-title">ACADEMIC</span>
+        <span class="card-description">Coursework, assignments<br />and class projects.</span>
+        <span class="card-bottom">EXPLORE <span aria-hidden="true">→</span></span>
       </a>
-    </section>
 
-    <section class="about-section" id="about">
-      <span class="about-mark">T.</span>
-      <div>
-        <p class="section-kicker">ABOUT THE PLATFORM</p>
-        <h2>Progress worth keeping.</h2>
-        <p>TROAL is a learning log, not a portfolio. It helps you remember what you studied, what you practiced, and where to find the work.</p>
-      </div>
-    </section>
+      <a class="choice-card independent" href="#" data-section="independent" aria-label="Open Independent">
+        <span class="card-number">02 / ON MY OWN</span>
+        <span class="card-icon" aria-hidden="true">✳</span>
+        <span class="card-title">INDEPENDENT</span>
+        <span class="card-description">Self-learning, experiments<br />and side projects.</span>
+        <span class="card-bottom">EXPLORE <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+    <p class="micro-copy">TWO WAYS TO KEEP MOVING.</p>
   </main>
-
-  <footer class="site-footer">
-    <a class="footer-brand" href="#home">TROAL<span>.</span></a>
-    <p>Track Record of All Learning</p>
-    <a href="#home" class="back-top">Back to top ↑</a>
-    <span class="copyright">© 2026 TROAL</span>
-  </footer>
-  <script src="script.js"></script>
 </body>
 </html>
