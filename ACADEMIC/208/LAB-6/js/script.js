@@ -141,3 +141,15 @@ checkboxes.forEach((checkbox) => {
     checkbox.closest(".assignment-card").classList.toggle("done", checkbox.checked);
   });
 });
+
+// Logo: cycle accent colours on click
+const logoColors = ["#ffd93d", "#74b9ff", "#5eead4", "#ff9ecb", "#ffa94d", "#c4b0ff"];
+let logoIndex = 0;
+const logo = document.querySelector(".brand");
+const logoMark = document.querySelector(".brand-mark");
+
+logo.addEventListener("click", (e) => {
+  e.preventDefault(); // stops the "#" link from jumping to the top
+  logoIndex = (logoIndex + 1) % logoColors.length;
+  logoMark.style.background = logoColors[logoIndex];
+});

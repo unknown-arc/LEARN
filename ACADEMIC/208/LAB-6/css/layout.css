@@ -57,7 +57,7 @@ body {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: -1px;
-  transition: transform .15s ease, box-shadow .15s ease;
+  transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
 }
 
 .brand:hover .brand-mark {
