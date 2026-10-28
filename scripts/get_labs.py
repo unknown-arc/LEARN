@@ -27,11 +27,12 @@ def main():
         labs.sort(key=lambda lab: int(lab["folder"].split("-")[-1]))
 
         output = subject_dir / "labs.json"
+        print(f"Writing {output}...")
         output.write_text(
             json.dumps(labs, indent=2) + "\n",
             encoding="utf-8"
         )
-
+        
         print(f"{subject_dir.name}: found {len(labs)} labs")
 
 
