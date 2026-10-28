@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Explore academic subjects, coursework, assignments and projects." />
+  <title>Academic | Learning Space</title>
+  <link rel="stylesheet" href="./academic.css" />
+  <script src="./academic.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="../index.html">TROAL<span>✳</span></a>
+    <a class="back-link" href="../index.html">← BACK HOME</a>
+  </header>
+
+  <main class="page">
+    <section class="intro">
+      <p class="eyebrow">01 / MY LEARNING SPACE</p>
+      <h1>ACADEMIC<span>.</span></h1>
+      <p class="subtitle">
+        A record of my coursework, assignments, practicals and academic projects.
+      </p>
+    </section>
+
+    <section class="subjects-section" aria-labelledby="subjects-heading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">THE COLLECTION</p>
+          <h2 id="subjects-heading">My subjects</h2>
+        </div>
+        <p class="subject-count" id="subject-count">Loading...</p>
+      </div>
+
+      <div class="subject-grid" id="subject-grid">
+        <p class="status-message">Discovering subjects...</p>
+      </div>
+
+      <p class="status-message error-message" id="error-message" hidden>
+        Subjects could not be loaded. Please try again later.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>TROAL — TRACK RECORD OF ALL LEARNING</span>
+    <a href="../index.html">BACK TO HOME ↗</a>
+  </footer>
+</body>
+</html>
