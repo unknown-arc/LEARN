@@ -29,4 +29,3 @@ No framework, package installation, or backend is required.
 9. Reverse a Number
 10. Prime Number Check (tests divisors up to the square root)
 
-The assignment cards also include simple filters and a completion progress indicator.
