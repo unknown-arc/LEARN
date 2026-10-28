@@ -3,7 +3,12 @@ const grid = document.querySelector("#lab-grid");
 
 async function loadLabs() {
   try {
+    console.log("Current page:", window.location.href);
+    console.log("Loading JSON...");
+
     const response = await fetch("./labs.json");
+
+    console.log("JSON response:", response.status);
 
     if (!response.ok) {
       throw new Error("Could not load labs");
