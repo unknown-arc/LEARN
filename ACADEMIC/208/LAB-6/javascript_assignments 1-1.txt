@@ -1,0 +1,45 @@
+JavaScript Assignment Set (Basic to Moderate)
+
+Assignment 1: Even or Odd Number Write a program that takes a number and
+checks whether it is even or odd. Requirements: - Use variables - Use
+if-else - Use % operator
+
+Assignment 2: Largest of Two Numbers Write a program to find the largest
+of two numbers entered by the user. Requirements: - Use if-else -
+Display result using console.log()
+
+Assignment 3: Simple Calculator Write a program that performs: -
+Addition - Subtraction - Multiplication - Division Requirements: - Use
+variables for two numbers and operator - Use if-else or switch - Handle
+division by zero
+
+Assignment 4: Check Positive, Negative or Zero Write a program to check
+whether a number is: - Positive - Negative - Zero Requirements: - Use
+if-else if-else
+
+Assignment 5: Sum of First N Numbers Write a program to calculate the
+sum of first N natural numbers. Requirements: - Use for loop - Use a
+variable to store sum
+
+Assignment 6: Multiplication Table Write a program to print the
+multiplication table of a number. Requirements: - Use for loop - Output
+format: 5 x 1 = 5
+
+Assignment 7: Factorial of a Number Write a program to find the
+factorial of a number. Requirements: - Use loop - Handle case when
+number is 0
+
+Assignment 8: Count Digits in a Number Write a program to count how many
+digits are present in a number. Requirements: - Use while loop - Use
+division operator
+
+Assignment 9: Reverse a Number Write a program to reverse a number.
+Example: Input: 1234 Output: 4321 Requirements: - Use loop - Use modulus
+and division
+
+Assignment 10: Prime Number Check Write a program to check whether a
+number is prime or not. Requirements: - Use loop - Use condition
+checking - Optimize by checking till sqrt(n)
+
+Additional Instructions: - Use let or const for variables - Print output
+using console.log() - Write clean and properly indented code

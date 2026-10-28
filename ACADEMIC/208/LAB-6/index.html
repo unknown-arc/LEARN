@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Practice Lab</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">JS</span> Practice Set | Lab-7</a>
+  </header>
+
+  <main class="container">
+    <section class="assignment-grid" id="assignmentGrid">
+
+      <article class="assignment-card" data-category="number">
+        <div class="card-top">
+          <span class="number">01</span>
+          <span class="tag">IF / ELSE</span>
+        </div>
+        <h2>Even or Odd</h2>
+        <p>Check whether a number can be divided by two without a remainder.</p>
+        <div class="field-row">
+          <label for="evenInput">Enter a number</label>
+          <input id="evenInput" type="number" placeholder="e.g. 24">
+        </div>
+        <button class="run-button" id="evenBtn">Check number <span>→</span></button>
+        <p class="result" id="evenResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>number % 2 === 0</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="0"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="number">
+        <div class="card-top">
+          <span class="number">02</span>
+          <span class="tag">IF / ELSE</span>
+        </div>
+        <h2>Largest of Two</h2>
+        <p>Compare two values and find the larger number.</p>
+        <div class="two-fields">
+          <div>
+            <label for="largeA">First number</label>
+            <input id="largeA" type="number" placeholder="12">
+          </div>
+          <div>
+            <label for="largeB">Second number</label>
+            <input id="largeB" type="number" placeholder="8">
+          </div>
+        </div>
+        <button class="run-button" id="largeBtn">Find largest <span>→</span></button>
+        <p class="result" id="largeResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>if (a > b) { ... }</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="1"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="number">
+        <div class="card-top">
+          <span class="number">03</span>
+          <span class="tag">SWITCH</span>
+        </div>
+        <h2>Simple Calculator</h2>
+        <p>Perform addition, subtraction, multiplication or division.</p>
+        <div class="two-fields">
+          <div>
+            <label for="calcA">First number</label>
+            <input id="calcA" type="number" placeholder="20">
+          </div>
+          <div>
+            <label for="calcB">Second number</label>
+            <input id="calcB" type="number" placeholder="4">
+          </div>
+        </div>
+        <div class="field-row">
+          <label for="operator">Operation</label>
+          <select id="operator">
+            <option value="+">Addition (+)</option>
+            <option value="-">Subtraction (−)</option>
+            <option value="*">Multiplication (×)</option>
+            <option value="/">Division (÷)</option>
+          </select>
+        </div>
+        <button class="run-button" id="calcBtn">Calculate <span>→</span></button>
+        <p class="result" id="calcResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>switch (operator) { ... }</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="2"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="number">
+        <div class="card-top">
+          <span class="number">04</span>
+          <span class="tag">IF / ELSE IF</span>
+        </div>
+        <h2>Positive, Negative or Zero</h2>
+        <p>Find out whether a number is positive, negative or zero.</p>
+        <div class="field-row">
+          <label for="signInput">Enter a number</label>
+          <input id="signInput" type="number" placeholder="-7">
+        </div>
+        <button class="run-button" id="signBtn">Check value <span>→</span></button>
+        <p class="result" id="signResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>if / else if / else</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="3"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="loops">
+        <div class="card-top">
+          <span class="number">05</span>
+          <span class="tag">FOR LOOP</span>
+        </div>
+        <h2>Sum of First N</h2>
+        <p>Add all natural numbers from 1 up to your chosen number.</p>
+        <div class="field-row">
+          <label for="sumInput">Enter N (1–10,000)</label>
+          <input id="sumInput" type="number" min="1" max="10000" placeholder="10">
+        </div>
+        <button class="run-button" id="sumBtn">Find sum <span>→</span></button>
+        <p class="result" id="sumResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>for (let i = 1; i <= n; i++)</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="4"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="loops">
+        <div class="card-top">
+          <span class="number">06</span>
+          <span class="tag">FOR LOOP</span>
+        </div>
+        <h2>Multiplication Table</h2>
+        <p>Generate the multiplication table for any number, from 1 to 10.</p>
+        <div class="field-row">
+          <label for="tableInput">Enter a number</label>
+          <input id="tableInput" type="number" placeholder="5">
+        </div>
+        <button class="run-button" id="tableBtn">Show table <span>→</span></button>
+        <div class="result output-list" id="tableResult" aria-live="polite"></div>
+        <details>
+          <summary>View logic</summary>
+          <code>number + " × " + i + " = " + number * i</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="5"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="loops">
+        <div class="card-top">
+          <span class="number">07</span>
+          <span class="tag">LOOP</span>
+        </div>
+        <h2>Factorial</h2>
+        <p>Multiply a number by every positive integer below it. Zero factorial is 1.</p>
+        <div class="field-row">
+          <label for="factInput">Enter N (0–170)</label>
+          <input id="factInput" type="number" min="0" max="170" placeholder="5">
+        </div>
+        <button class="run-button" id="factBtn">Find factorial <span>→</span></button>
+        <p class="result" id="factResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>let factorial = 1;</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="6"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="loops">
+        <div class="card-top">
+          <span class="number">08</span>
+          <span class="tag">WHILE LOOP</span>
+        </div>
+        <h2>Count Digits</h2>
+        <p>Count how many digits appear in a whole number.</p>
+        <div class="field-row">
+          <label for="digitsInput">Enter a whole number</label>
+          <input id="digitsInput" type="number" step="1" placeholder="2026">
+        </div>
+        <button class="run-button" id="digitsBtn">Count digits <span>→</span></button>
+        <p class="result" id="digitsResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>while (number > 0) { ... }</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="7"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="loops">
+        <div class="card-top">
+          <span class="number">09</span>
+          <span class="tag">LOOP + %</span>
+        </div>
+        <h2>Reverse a Number</h2>
+        <p>Reverse the digits of a whole number using remainder and division.</p>
+        <div class="field-row">
+          <label for="reverseInput">Enter a whole number</label>
+          <input id="reverseInput" type="number" step="1" placeholder="1234">
+        </div>
+        <button class="run-button" id="reverseBtn">Reverse number <span>→</span></button>
+        <p class="result" id="reverseResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>reversed = reversed * 10 + number % 10</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="8"> Mark as completed
+        </label>
+      </article>
+
+      <article class="assignment-card" data-category="loops">
+        <div class="card-top">
+          <span class="number">10</span>
+          <span class="tag">OPTIMIZED LOOP</span>
+        </div>
+        <h2>Prime Number</h2>
+        <p>Check whether a number is prime, checking divisors only up to its square root.</p>
+        <div class="field-row">
+          <label for="primeInput">Enter a whole number</label>
+          <input id="primeInput" type="number" step="1" min="0" placeholder="17">
+        </div>
+        <button class="run-button" id="primeBtn">Check prime <span>→</span></button>
+        <p class="result" id="primeResult" aria-live="polite"></p>
+        <details>
+          <summary>View logic</summary>
+          <code>i * i <= number</code>
+        </details>
+        <label class="complete">
+          <input type="checkbox" data-task="9"> Mark as completed
+        </label>
+      </article>
+    </section>
+    </main>
+
+  <script src="js/script.js"></script>
+
+</body>
+</html>
