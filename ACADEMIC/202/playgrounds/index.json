@@ -1,0 +1,6 @@
+{
+  "name": "TROAL Shared Playground",
+  "version": 1,
+  "engine": "sqlite",
+  "description": "Shared playground configuration. Selected lab resources are loaded from ../LAB-x/index.json."
+}
