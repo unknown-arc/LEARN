@@ -6,7 +6,7 @@ const closeBtn = document.querySelector("#close-playground");
 function openLab(lab) {
     const title =
         document.querySelector("#playground-title") ||
-        document.querySelector("#active-lab-title");
+        document.querySelector("#playground-title");
 
     if (!title) {
         console.error(
@@ -103,3 +103,9 @@ closeBtn?.addEventListener("click", () => {
 });
 
 loadLabs();
+
+window.addEventListener("message", (event) => {
+    if (event.origin !== location.origin || event.data?.type !== "troal-playground-height") return;
+    const height = Number(event.data.height);
+    if (Number.isFinite(height) && height > 0) frame.style.height = `${height}px`;
+});
