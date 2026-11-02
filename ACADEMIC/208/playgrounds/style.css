@@ -6,6 +6,7 @@
   --pink: #ff6bcb;
   --lime: #d8ff3e;
   --blue: #9edcff;
+  --yellow: #faff6b;
 }
 
 * { box-sizing: border-box; }
@@ -85,6 +86,7 @@ body {
   box-shadow: 3px 3px 0 var(--ink);
 }
 
+.yellow { background: var(--yellow); }
 .lime { background: var(--lime); }
 .blue { background: var(--blue); }
 .pink { background: var(--pink); }

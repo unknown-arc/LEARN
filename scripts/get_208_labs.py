@@ -29,8 +29,8 @@ def find_lab_pdfs():
             continue
 
         for file in sorted(resource_dir.iterdir()):    
-            if file.suffix.lower() != ".pdf":
-                pdf_name = file.name.lower()
+            if file.suffix.lower() == ".pdf":
+                pdf_name = resource_dir.name + "/" + file.name.lower()
                 return pdf_name
 
 def main():
