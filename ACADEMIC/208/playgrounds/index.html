@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab viewer | TROAL 208</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="title">
+      <small>LAB VIEWER</small>
+      <h1 id="lab-title">Lab</h1>
+    </div>
+
+    <nav class="actions">
+      <button id="view-toggle" class="btn lime" type="button">VIEW TASK</button>
+      <a id="github-link" class="btn blue" target="_blank" rel="noopener noreferrer">VIEW CODE ON GITHUB ↗</a>
+      <a id="site-link" class="btn pink" target="_blank" rel="noopener noreferrer">OPEN IN NEW TAB ↗</a>
+    </nav>
+
+    <button id="close" class="btn close" type="button">CLOSE ✕</button>
+  </header>
+
+  <main class="stage">
+    <iframe id="site-frame" title="Lab website"></iframe>
+
+    <!-- Task.txt, designed -->
+    <div id="task-view" class="task-view" hidden></div>
+
+    <!-- Task PDF (labs 1-3) -->
+    <div id="pdf-view" class="pdf-view" hidden>
+      <p class="pdf-note">
+        Can't see the PDF here?
+        <a id="pdf-link" target="_blank" rel="noopener noreferrer">OPEN PDF ↗</a>
+      </p>
+      <iframe id="pdf-frame" title="Task PDF"></iframe>
+    </div>
+  </main>
+
+  <script src="task-renderer.js"></script>
+  <script src="playground.js"></script>
+</body>
+</html>

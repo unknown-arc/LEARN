@@ -237,3 +237,64 @@ a:focus-visible {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+/* Bottom panel (lab viewer) */
+.lab-panel {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  height: 78vh;
+  height: 78dvh;
+  border-top: 3px solid var(--ink);
+  box-shadow: 0 -6px 0 var(--ink);
+  background: var(--paper);
+  transform: translateY(100%);
+  transition: transform .25s ease;
+}
+
+.lab-panel[hidden] { display: none; }
+
+.lab-panel.open { transform: none; }
+
+.lab-panel iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Extra room at the bottom so the cards can still be scrolled into view */
+body.panel-open { padding-bottom: 78vh; }
+
+/* Square black scrollbar with a white edge.
+   Note: do not set scrollbar-color / scrollbar-width on Chrome,
+   they override the square ::-webkit-scrollbar style below. */
+*::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #fff;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: 2px solid #fff;
+  border-radius: 0;
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--ink);
+}
+
+/* Firefox has no ::-webkit-scrollbar, so it gets the colour-only version */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--ink) #fff;
+  }
+}

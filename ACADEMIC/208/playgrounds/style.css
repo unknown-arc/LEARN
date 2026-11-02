@@ -1,0 +1,337 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --ink: #171717;
+  --paper: #f7f5ef;
+  --pink: #ff6bcb;
+  --lime: #d8ff3e;
+  --blue: #9edcff;
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: 'Space Grotesk', Arial, sans-serif;
+}
+
+/* Top bar: title on the left, buttons in the middle, close on the right */
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  padding: 12px 20px;
+  border-bottom: 3px solid var(--ink);
+}
+
+.title small {
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+}
+
+.title h1 {
+  margin: 2px 0 0;
+  font-size: 1.4rem;
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.btn {
+  padding: 10px 14px;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  color: var(--ink);
+  background: #fff;
+  font: 700 .66rem 'Space Grotesk', Arial, sans-serif;
+  letter-spacing: .08em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.btn:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.lime { background: var(--lime); }
+.blue { background: var(--blue); }
+.pink { background: var(--pink); }
+
+.btn:focus-visible {
+  outline: 3px dashed var(--ink);
+  outline-offset: 3px;
+}
+
+/* The lab website or the task text fills the rest of the panel */
+.stage {
+  flex: 1;
+  min-height: 0;
+}
+
+.stage iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #fff;
+}
+
+/* Task PDF (labs 1-3) */
+.pdf-view {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.pdf-note {
+  margin: 0;
+  padding: 8px 14px;
+  border-bottom: 2px solid var(--ink);
+  background: var(--lime);
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.pdf-view iframe {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Task.txt, designed */
+.task-view {
+  height: 100%;
+  padding: 32px 24px 48px;
+  overflow: auto;
+  background-color: var(--paper);
+  background-image: radial-gradient(#17171718 .8px, transparent .8px);
+  background-size: 17px 17px;
+}
+
+.task {
+  max-width: 860px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.task p { margin: 0 0 12px; }
+
+.task-head {
+  padding-bottom: 22px;
+  border-bottom: 3px solid var(--ink);
+}
+
+.task-kicker,
+.task-label {
+  margin: 0 0 6px;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+.task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 18px;
+}
+
+.task-meta span {
+  padding: 6px 10px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  font-size: .78rem;
+}
+
+.lab-badge {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 6px 14px;
+  border: 3px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  background: var(--lime);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  transform: rotate(-2deg);
+}
+
+.task-title {
+  margin: 0;
+  font-size: clamp(1.8rem, 4.5vw, 2.9rem);
+  line-height: 1;
+  letter-spacing: -.06em;
+}
+
+.callout {
+  margin: 26px 0 16px;
+  padding: 18px 20px;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  background: var(--lime);
+}
+
+.callout p { margin: 6px 0 0; }
+
+.callout-label {
+  font-size: .68rem;
+  letter-spacing: .15em;
+}
+
+.section-title {
+  margin: 38px 0 4px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--ink);
+  font-size: 1.5rem;
+  letter-spacing: -.05em;
+}
+
+/* One numbered requirement = one card, colours repeat pink / lime / blue */
+.card {
+  margin: 24px 0;
+  border: 3px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  background: #fff;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 12px 16px;
+  border-bottom: 3px solid var(--ink);
+  font-size: 1.1rem;
+  letter-spacing: -.03em;
+}
+
+.card.c0 .card-title { background: var(--pink); }
+.card.c1 .card-title { background: var(--lime); }
+.card.c2 .card-title { background: var(--blue); }
+
+.card-number {
+  display: grid;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: .85rem;
+}
+
+.card-body { padding: 18px 20px 8px; }
+
+.lead { font-weight: 700; }
+
+.task-list {
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.task-list li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.task-list li::before {
+  content: "";
+  position: absolute;
+  top: .62em;
+  left: 2px;
+  width: 8px;
+  height: 8px;
+  background: var(--ink);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 14px;
+}
+
+.chip {
+  padding: 5px 11px;
+  border: 2px solid var(--ink);
+  font-size: .78rem;
+  font-weight: 700;
+}
+
+.chip.c0 { background: var(--pink); }
+.chip.c1 { background: var(--lime); }
+.chip.c2 { background: var(--blue); }
+
+@media (max-width: 700px) {
+  .bar { padding: 10px 14px; }
+  .actions { width: 100%; margin-left: 0; order: 3; }
+  .actions .btn { flex: 1 1 auto; text-align: center; }
+  .close { margin-left: auto; }
+  .task-view { padding: 20px 14px 36px; }
+  .card-title { font-size: .95rem; }
+}
+
+/* Square black scrollbar with a white edge.
+   Note: do not set scrollbar-color / scrollbar-width on Chrome,
+   they override the square ::-webkit-scrollbar style below. */
+*::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #fff;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: 2px solid #fff;
+  border-radius: 0;
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--ink);
+}
+
+/* Firefox has no ::-webkit-scrollbar, so it gets the colour-only version */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--ink) #fff;
+  }
+}
