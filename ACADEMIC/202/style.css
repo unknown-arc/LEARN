@@ -354,7 +354,7 @@ button {
 #playground-frame {
   display: block;
   width: 100%;
-  height: 900px;
+  height: 1px;
   min-height: 0;
   border: 0;
   background: var(--paper);
@@ -391,9 +391,6 @@ button:focus-visible {
     gap: 18px;
   }
 
-  #playground-frame {
-    height: 1000px;
-  }
 }
 
 @media (max-width: 540px) {
@@ -435,9 +432,6 @@ button:focus-visible {
     align-self: flex-start;
   }
 
-  #playground-frame {
-    height: 1100px;
-  }
 
   .site-footer {
     align-items: flex-start;

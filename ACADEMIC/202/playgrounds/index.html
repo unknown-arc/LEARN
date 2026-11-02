@@ -57,10 +57,11 @@
                         placeholder="Choose a SQL file from the resource list..."></textarea>
 
                     <div class="actions">
-                        <button id="run-sql" class="primary">RUN SQL ▶</button>
-                        <button id="run-migrations">RUN MIGRATIONS</button>
-                        <button id="run-seeds">RUN SEEDS</button>
-                        <button id="rebuild-db" class="warning">RESET &amp; REBUILD</button>
+                        <button id="run-sql" class="primary sql-action">RUN SQL ▶</button>
+                        <button id="run-migrations" class="sql-action">RUN MIGRATIONS</button>
+                        <button id="run-seeds" class="sql-action">RUN SEEDS</button>
+                        <button id="rebuild-db" class="warning sql-action">RESET &amp; REBUILD</button>
+                        <button id="editor-view-toggle" class="view-toggle" hidden>VIEW TABLES</button>
                     </div>
                 </div>
 
@@ -73,10 +74,6 @@
                     <div id="editor-live-table" class="live-table">
                         <p class="muted">Run migrations and seeds to create tables.</p>
                     </div>
-                </div>
-
-                <div class="editor-bottom-tools">
-                    <button id="editor-view-toggle" class="view-toggle" hidden>VIEW TABLES</button>
                 </div>
 
                 <div id="task-view" class="task-view" hidden>

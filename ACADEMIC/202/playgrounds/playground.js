@@ -86,6 +86,11 @@ function showEditor() {
     el.console.hidden = false;
     el.editorViewToggle.textContent = "VIEW TABLES";
     el.editorWrap.hidden = false;
+    const cm = el.editorWrap.querySelector(".CodeMirror");
+    if (cm) cm.hidden = false;
+    el.editorWrap.querySelectorAll(".sql-action").forEach((button) => {
+        button.hidden = false;
+    });
     el.editorDatabaseView.hidden = true;
 }
 
@@ -699,18 +704,29 @@ function toggleDatabaseView() {
     if (state.isErLab) return;
     state.viewingTables = !state.viewingTables;
     el.console.hidden = state.viewingTables;
-    el.editorWrap.hidden = state.viewingTables;
+    const cm = el.editorWrap.querySelector(".CodeMirror");
+    if (cm) cm.hidden = state.viewingTables;
+    el.editorWrap.querySelectorAll(".sql-action").forEach((button) => {
+        button.hidden = state.viewingTables;
+    });
     el.editorDatabaseView.hidden = !state.viewingTables;
     el.editorViewToggle.textContent = state.viewingTables ? "SHOW EDITOR" : "VIEW TABLES";
     if (state.viewingTables) refreshTableList();
 }
 
 function resizeFrame() {
-    const height = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    const app = document.querySelector(".app");
+    const height = Math.ceil(Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight,
+        app?.getBoundingClientRect().height || 0
+    ));
     parent.postMessage({ type: "troal-playground-height", height }, location.origin);
 }
 
-new ResizeObserver(resizeFrame).observe(document.body);
+const resizeObserver = new ResizeObserver(resizeFrame);
+resizeObserver.observe(document.body);
+resizeObserver.observe(document.querySelector(".app"));
 window.addEventListener("load", resizeFrame);
 window.addEventListener("resize", resizeFrame);
 
