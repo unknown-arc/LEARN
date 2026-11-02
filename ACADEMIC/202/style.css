@@ -217,31 +217,35 @@ button {
   background: #a8f0d0;
 }
 
-/* Square black scrollbar */
-* {
-  scrollbar-width: auto;
-  scrollbar-color: var(--ink) var(--paper);
-}
-
+/* Square black scrollbar with a white edge.
+   Note: do not set scrollbar-color / scrollbar-width on Chrome,
+   they override the square ::-webkit-scrollbar style below. */
 *::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
 }
 
 *::-webkit-scrollbar-track {
+  background: #fff;
   border: 1px solid var(--ink);
   border-radius: 0;
-  background: var(--paper);
 }
 
 *::-webkit-scrollbar-thumb {
-  border: 1px solid var(--paper);
+  background: var(--ink);
+  border: 2px solid #fff;
   border-radius: 0;
+}
+
+*::-webkit-scrollbar-corner {
   background: var(--ink);
 }
 
-*::-webkit-scrollbar-thumb:hover {
-  background: #444;
+/* Firefox has no ::-webkit-scrollbar, so it gets the colour-only version */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--ink) #fff;
+  }
 }
 
 .content-card:hover {

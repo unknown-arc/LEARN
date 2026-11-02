@@ -90,6 +90,27 @@ p {
     max-width: 680px;
 }
 
+.github-repo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.repo-link {
+    padding: 10px 12px;
+    border: var(--line);
+    background: var(--pink);
+    color: var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.repo-link:hover {
+    background: var(--lime);
+}
+
 .engine {
     display: flex;
     flex-direction: column;
@@ -108,7 +129,7 @@ p {
     letter-spacing: .1em;
 }
 
-.error {
+#load-error {
     margin-top: 16px;
     padding: 12px;
     border: var(--line);
@@ -262,6 +283,11 @@ p {
     overflow-wrap: anywhere;
 }
 
+.resource-item:hover .file-path,
+.resource-item.active .file-path {
+    color: var(--ink);
+}
+
 .empty {
     margin: 0;
     padding: 12px;
@@ -287,60 +313,66 @@ p {
     padding: 10px;
 }
 
-.CodeMirror {
+/* Light editor theme (GitHub Light palette).
+   ".CodeMirror.cm-s-troal" is used so it wins over the CDN codemirror.css. */
+.CodeMirror.cm-s-troal {
     height: 350px;
     border: var(--line);
-    background: #17181f;
-    color: #e9e9ed;
+    background: #ffffff;
+    color: #24292f;
     font: 12px/1.65 Consolas, 'Courier New', monospace;
 }
 
-.CodeMirror-gutters {
-    border-right: 1px solid #414252;
-    background: #23242d;
+.cm-s-troal .CodeMirror-gutters {
+    border-right: 1px solid #d0d7de;
+    background: #f6f8fa;
 }
 
-.CodeMirror-linenumber {
-    color: #777b8b;
+.cm-s-troal .CodeMirror-linenumber {
+    color: #8c959f;
 }
 
 .cm-s-troal .cm-keyword {
-    color: #d85a9f;
+    color: #cf222e;
     font-weight: 700;
 }
 
 .cm-s-troal .cm-operator {
-    color: #c98748;
+    color: #24292f;
 }
 
 .cm-s-troal .cm-number {
-    color: #9b79c8;
+    color: #0550ae;
 }
 
 .cm-s-troal .cm-string {
-    color: #c6ca70;
+    color: #0a3069;
 }
 
 .cm-s-troal .cm-comment {
-    color: #777b8b;
+    color: #6e7781;
     font-style: italic;
 }
 
 .cm-s-troal .cm-builtin,
 .cm-s-troal .cm-variable-2 {
-    color: #70b8c9;
+    color: #8250df;
 }
 
 .cm-s-troal .cm-def {
-    color: #70bd83;
+    color: #953800;
 }
 
-.CodeMirror-cursor {
-    border-left: 2px solid #f8f8f2;
+.cm-s-troal .CodeMirror-cursor {
+    border-left: 2px solid #24292f;
 }
 
-.CodeMirror-selected {
-    background: #44475a !important;
+.cm-s-troal .CodeMirror-selected {
+    background: #b6d7ff !important;
+}
+
+.cm-s-troal .CodeMirror-activeline-background {
+    background: #f6f8fa;
 }
 
 .actions {
@@ -510,7 +542,13 @@ p {
 }
 
 .line.error {
-    color: #ff8295;
+    margin: 4px 0;
+    padding: 6px 8px;
+    border: 0;
+    border-left: 4px solid #8f0023;
+    background: #ffc9cf;
+    color: #4a0010;
+    font-weight: 700;
 }
 
 .line.command {
@@ -528,6 +566,11 @@ p {
 .database-view {
     min-height: 0;
     padding: 12px;
+}
+
+.database-actions {
+    justify-content: flex-end;
+    margin-top: 12px;
 }
 
 .view-toolbar {
@@ -574,33 +617,6 @@ footer {
     letter-spacing: .05em;
 }
 
-/* Square black scrollbars */
-* {
-    scrollbar-width: auto;
-    scrollbar-color: var(--ink) var(--paper);
-}
-
-*::-webkit-scrollbar {
-    width: 12px;
-    height: 12px;
-}
-
-*::-webkit-scrollbar-track {
-    background: var(--paper);
-    border: 1px solid var(--ink);
-    border-radius: 0;
-}
-
-*::-webkit-scrollbar-thumb {
-    background: var(--ink);
-    border: 1px solid var(--paper);
-    border-radius: 0;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-    background: #444;
-}
-
 .new-query {
     border: 2px solid var(--ink);
     color: #fff;
@@ -612,6 +628,8 @@ footer {
 }
 
 .new-query .file-icon {
+    font-size: 12px;
+    line-height: 1;
     color: var(--ink);
     background: var(--paper);
 }
@@ -666,12 +684,12 @@ footer {
 }
 /* Final layout and contrast refinements */
 :root {
-    --lime: #a8bd24;
-    --pink: #c63f91;
-    --blue: #5799bd;
-    --orange: #bd762d;
-    --purple: #8065bd;
-    --mint: #4f9b7b;
+    --lime: #cfe650;
+    --pink: #ee78c0;
+    --blue: #8ccbe8;
+    --orange: #e8a45c;
+    --purple: #b19ce8;
+    --mint: #7fcfae;
 }
 
 .engine,
@@ -707,6 +725,8 @@ footer {
 }
 
 .new-query .file-icon {
+    font-size: 12px;
+    line-height: 1;
     color: var(--ink);
     background: var(--paper);
 }
@@ -725,16 +745,13 @@ footer {
     display: none;
 }
 
-/* Hard-edged black scrollbar with a visible white inset edge. */
-* {
-    scrollbar-color: var(--ink) #fff;
-    scrollbar-width: auto;
-}
 
+/* Square black scrollbar with a white edge.
+   Note: do not set scrollbar-color / scrollbar-width on Chrome,
+   they override the square ::-webkit-scrollbar style below. */
 *::-webkit-scrollbar {
-    width: 13px;
-    height: 13px;
-    border-radius: 0;
+    width: 14px;
+    height: 14px;
 }
 
 *::-webkit-scrollbar-track {
@@ -751,5 +768,11 @@ footer {
 
 *::-webkit-scrollbar-corner {
     background: var(--ink);
-    border: 1px solid #fff;
+}
+
+/* Firefox has no ::-webkit-scrollbar, so it gets the colour-only version */
+@supports not selector(::-webkit-scrollbar) {
+    * {
+        scrollbar-color: var(--ink) #fff;
+    }
 }

@@ -87,8 +87,8 @@ def main():
                 resources["tasks"].append(resource(file, lab_dir))
             elif ext in ER_EXTENSIONS:
                 resources["er_diagrams"].append(resource(file, lab_dir))
-            elif lab_number >= 3:
-                # Other loose files are grouped under SQL Files.
+            else:
+                # Any other loose file is grouped under Other Files (all labs).
                 resources["sql_files"].append(resource(file, lab_dir))
 
         # SQL subfolders have dedicated tabs from LAB-3 onwards.
@@ -112,11 +112,12 @@ def main():
                     continue
                 resources["sql_files"].append(resource(file, lab_dir))
 
-        # LAB-1 and LAB-2 expose only Task and ER Diagram categories.
+        # LAB-1 and LAB-2 expose Task, ER Diagram and Other Files.
         if lab_number in (1, 2):
             resources = {
                 "tasks": resources["tasks"],
-                "er_diagrams": resources["er_diagrams"]
+                "er_diagrams": resources["er_diagrams"],
+                "sql_files": resources["sql_files"]
             }
         else:
             resources.pop("er_diagrams")

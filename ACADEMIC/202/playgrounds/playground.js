@@ -2,6 +2,10 @@ const params = new URLSearchParams(location.search);
 const labFolder = params.get("lab");
 const $ = (selector) => document.querySelector(selector);
 
+// Change this to your real repo and path. The lab folder name is added at the end.
+const REPO_URL = "https://github.com/unknown-arc/LEARN/tree/main/ACADEMIC/202";
+document.querySelector("#repo-link").href = `${REPO_URL}/${labFolder}`;
+
 const el = {
     title: $("#lab-title"),
     description: $("#lab-description"),
@@ -17,6 +21,7 @@ const el = {
     editorDownload: $("#editor-download"),
     editorCopy: $("#editor-copy"),
     editorDatabaseView: $("#editor-database-view"),
+    databaseActions: $("#database-actions"),
     editorTableSelect: $("#editor-table-select"),
     editorLiveTable: $("#editor-live-table"),
     task: $("#task-view"),
@@ -80,9 +85,16 @@ function clearTask() {
     el.text.textContent = "";
 }
 
+// The toggle sits bottom-right: in the SQL button row, or under the table view.
+function placeViewToggle(viewingTables) {
+    const row = viewingTables ? el.databaseActions : el.editorWrap.querySelector(".actions");
+    row.append(el.editorViewToggle);
+}
+
 function showEditor() {
     clearTask();
     state.viewingTables = false;
+    placeViewToggle(false);
     el.console.hidden = false;
     el.editorViewToggle.textContent = "VIEW TABLES";
     el.editorWrap.hidden = false;
@@ -96,6 +108,7 @@ function showEditor() {
 
 function showTask() {
     state.viewingTables = false;
+    placeViewToggle(false);
     el.console.hidden = false;
     el.editorViewToggle.textContent = "VIEW TABLES";
     el.editorWrap.hidden = true;
@@ -253,7 +266,8 @@ function categoryList() {
     if (isErLab) {
         return [
             { id: "tasks", label: "Task" },
-            { id: "er_diagrams", label: "ER Diagram" }
+            { id: "er_diagrams", label: "ER Diagram" },
+            { id: "sql_files", label: "Other Files" }
         ];
     }
 
@@ -710,17 +724,16 @@ function toggleDatabaseView() {
         button.hidden = state.viewingTables;
     });
     el.editorDatabaseView.hidden = !state.viewingTables;
+    placeViewToggle(state.viewingTables);
     el.editorViewToggle.textContent = state.viewingTables ? "SHOW EDITOR" : "VIEW TABLES";
     if (state.viewingTables) refreshTableList();
 }
 
 function resizeFrame() {
+    // Measure only the page content. documentElement.scrollHeight is never
+    // smaller than the iframe itself, so using it left empty space at the bottom.
     const app = document.querySelector(".app");
-    const height = Math.ceil(Math.max(
-        document.documentElement.scrollHeight,
-        document.body.scrollHeight,
-        app?.getBoundingClientRect().height || 0
-    ));
+    const height = Math.ceil(app.getBoundingClientRect().height);
     parent.postMessage({ type: "troal-playground-height", height }, location.origin);
 }
 
