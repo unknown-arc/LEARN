@@ -1,3 +1,9 @@
+Class Activity
+
+Subject: CDA 208 Web Development and App Design
+Dates: 30 Sept, 2026
+
+LAB-5
 Assignment: Incredible India – Temple Tourism Webpage
 
 Objective: Design an attractive and responsive Temple Tourism Website titled “Sacred India – Explore the Timeless Temples of India” using HTML5 and CSS3.
