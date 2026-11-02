@@ -628,8 +628,6 @@ footer {
 }
 
 .new-query .file-icon {
-    font-size: 12px;
-    line-height: 1;
     color: var(--ink);
     background: var(--paper);
 }
@@ -672,6 +670,12 @@ footer {
 
     .actions button {
         min-height: 42px;
+    }
+
+    /* Full-width row on phones (margin-left:auto would otherwise shrink it) */
+    .actions .view-toggle {
+        grid-column: 1 / -1;
+        margin-left: 0;
     }
 
     footer {
@@ -725,8 +729,6 @@ footer {
 }
 
 .new-query .file-icon {
-    font-size: 12px;
-    line-height: 1;
     color: var(--ink);
     background: var(--paper);
 }
