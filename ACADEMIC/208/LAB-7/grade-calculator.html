@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grade Calculator — Desk Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/calculator.css">
+</head>
+<body class="calc">
+<div class="backdrop" style="background-image:url(assets/calc/table.jpg)"></div>
+<main class="stage" id="stage">
+  <img class="bg" src="assets/calc/table.jpg" alt="" width="1234" height="864">
+
+  <!-- window light falling onto the desk -->
+  <svg class="layer shaft" viewBox="0 0 1234 864" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1c2" stop-opacity=".5"/><stop offset=".7" stop-color="#ffe4a0" stop-opacity=".14"/><stop offset="1" stop-color="#ffd98a" stop-opacity="0"/></linearGradient>
+      <filter id="sb" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="18"/></filter>
+    </defs>
+    <polygon points="360,130 930,130 1090,560 230,660" fill="url(#sg)" filter="url(#sb)"/>
+  </svg>
+  <div class="lampglow" id="lampglow" aria-hidden="true"></div>
+
+  <div id="objects">
+    <button class="obj" data-id="papers"     style="--x:71;--y:436;--w:338;--h:210" aria-label="New blank sheet"><img src="assets/calc/papers.webp" alt=""></button>
+    <button class="obj" data-id="documents"  style="--x:383;--y:465;--w:278;--h:188" aria-label="Previous calculations"><img src="assets/calc/documents.webp" alt=""></button>
+    <button class="obj" data-id="calculator" style="--x:682;--y:511;--w:137;--h:134" aria-label="Calculator"><img src="assets/calc/calculator.webp" alt=""><span class="lcd" id="lcd">0.</span></button>
+    <button class="obj" data-id="pencup"     style="--x:792;--y:342;--w:94;--h:159" aria-label="Pen cup"><img src="assets/calc/pencup.webp" alt=""></button>
+    <button class="obj still" data-id="lamp" style="--x:850;--y:110;--w:204;--h:380;--sx:10px;--sy:6px" aria-label="Desk lamp"><img src="assets/calc/lamp.webp" alt=""></button>
+    <button class="obj" data-id="notes"      style="--x:828;--y:509;--w:114;--h:54"  aria-label="Grade key sticky note"><img src="assets/calc/notes.webp" alt=""></button>
+    <button class="obj" data-id="clip1"      style="--x:914;--y:493;--w:59;--h:22;--sx:2px;--sy:3px;--sb:2px" aria-label="Paper clip"><img src="assets/calc/clip1.webp" alt=""></button>
+    <button class="obj" data-id="clip2"      style="--x:932;--y:514;--w:40;--h:29;--sx:2px;--sy:3px;--sb:2px" aria-label="Paper clip"><img src="assets/calc/clip2.webp" alt=""></button>
+    <div class="marker" id="mk-papers"     style="--x:71;--y:436;--w:338;--h:210"></div>
+    <div class="marker" id="mk-documents"  style="--x:383;--y:465;--w:278;--h:188"></div>
+    <div class="marker" id="mk-calculator" style="--x:682;--y:511;--w:137;--h:134"></div>
+  </div>
+  <canvas class="dust" id="dust"></canvas>
+  <div class="bubble" id="bubble" role="status"></div>
+
+  <!-- ===== New sheet: Assignment 1 form ===== -->
+  <section class="panel sheet" id="sheet" hidden aria-labelledby="sheetTitle">
+    <button class="x" type="button" data-close aria-label="Close sheet">&times;</button>
+    <span class="tape" aria-hidden="true"></span>
+    <h2 id="sheetTitle">Student Grade Sheet</h2>
+    <p class="meta">CDA 208 · Lab-7 · Assignment 1</p>
+    <form id="gradeForm" novalidate>
+      <div class="field">
+        <label for="sname">Student name</label>
+        <input id="sname" type="text" maxlength="40" autocomplete="off" placeholder="e.g. Aarav Sharma" aria-describedby="e-name">
+        <small class="err" id="e-name" role="alert"></small>
+      </div>
+      <div class="subjects">
+        <div class="field s"><label for="m1">Subject 1</label><div class="pair"><input class="sn" id="n1" type="text" maxlength="24" placeholder="Name (optional)" aria-label="Subject 1 name"><input class="mk" id="m1" type="number" inputmode="decimal" min="0" max="100" step="any" placeholder="0 – 100" aria-describedby="e-m1"></div><small class="err" id="e-m1" role="alert"></small></div>
+        <div class="field s"><label for="m2">Subject 2</label><div class="pair"><input class="sn" id="n2" type="text" maxlength="24" placeholder="Name (optional)" aria-label="Subject 2 name"><input class="mk" id="m2" type="number" inputmode="decimal" min="0" max="100" step="any" placeholder="0 – 100" aria-describedby="e-m2"></div><small class="err" id="e-m2" role="alert"></small></div>
+        <div class="field s"><label for="m3">Subject 3</label><div class="pair"><input class="sn" id="n3" type="text" maxlength="24" placeholder="Name (optional)" aria-label="Subject 3 name"><input class="mk" id="m3" type="number" inputmode="decimal" min="0" max="100" step="any" placeholder="0 – 100" aria-describedby="e-m3"></div><small class="err" id="e-m3" role="alert"></small></div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="submit" id="calcBtn">Calculate Result</button>
+        <button class="btn ghost" type="reset" id="resetBtn">Clear</button>
+      </div>
+    </form>
+    <div class="result" id="result" hidden aria-live="polite"></div>
+  </section>
+
+  <!-- ===== History ===== -->
+  <section class="panel sheet" id="history" hidden aria-labelledby="histTitle">
+    <button class="x" type="button" data-close aria-label="Close history">&times;</button>
+    <span class="tape" aria-hidden="true"></span>
+    <h2 id="histTitle">Previous Calculations</h2>
+    <p class="meta" id="histMeta"></p>
+    <ul class="hist" id="histList"></ul>
+    <div class="actions"><button class="btn" type="button" id="newFromHist">New sheet</button><button class="btn ghost" type="button" id="clearHist">Clear all</button></div>
+  </section>
+</main>
+
+<script src="js/game.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/calculator.js"></script>
+</body>
+</html>

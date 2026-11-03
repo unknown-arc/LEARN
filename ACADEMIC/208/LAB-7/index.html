@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Desk Quest — Study Room</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/overview.css">
+</head>
+<body class="overview">
+<div class="backdrop warm"></div>
+<main class="stage" id="stage" aria-label="Study room. Click the desk for the Grade Calculator or the corkboard for the To-Do list.">
+  <img class="bg" src="assets/overview/room.webp" alt="" width="1234" height="864">
+
+  <!-- soft shadows on the floor -->
+  <div class="fs" style="--x:355;--y:628;--w:300;--h:66"></div>
+  <div class="fs" style="--x:940;--y:692;--w:340;--h:74"></div>
+  <div class="fs" style="--x:622;--y:493;--w:112;--h:30"></div>
+
+  <!-- sunlight shaft from the window -->
+  <svg class="layer shaft" viewBox="0 0 1234 864" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1c2" stop-opacity=".55"/><stop offset=".6" stop-color="#ffe4a0" stop-opacity=".22"/><stop offset="1" stop-color="#ffd98a" stop-opacity=".05"/></linearGradient>
+      <filter id="sb" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="16"/></filter>
+    </defs>
+    <polygon points="368,190 830,385 1000,590 900,700 368,485" fill="url(#sg)" filter="url(#sb)"/>
+  </svg>
+  <div class="flare" style="left:15%;top:25%;width:22%;aspect-ratio:1"></div>
+
+  <div id="objects"></div>
+  <canvas class="dust" id="dust"></canvas>
+  <div class="bubble" id="bubble" role="status"></div>
+</main>
+<div class="hint" id="hint">Click the <b>desk</b> or the <b>corkboard</b> to start · <span id="secrets">0/5</span> secrets found</div>
+
+<script src="js/game.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/overview.js"></script>
+</body>
+</html>

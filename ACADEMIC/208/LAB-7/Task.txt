@@ -1,0 +1,33 @@
+Class Activity
+
+Subject: CDA 208 Web Development and App Design
+Dates: 28 Oct, 2026
+
+LAB-7
+The following assignments are the today's task in this lab session.
+ 
+1. Assignment 1: Interactive Student Grade Calculator
+Objective: Develop a webpage that calculates a student's total marks, percentage, and grade.
+Requirements:
+A. Create input fields for student name and marks in three subjects (out of 100).
+B. Add a Calculate Result button.
+C. Use JavaScript to calculate total marks and percentage.
+D. Assign grades based on percentage: A (80–100), B (60–79), C (40–59), F (below 40).
+E. Display the result dynamically without reloading the page.
+F. Validate that marks are between 0 and 100.
+G. Use CSS to create a centered calculator card with styled input fields and buttons.
+JavaScript concepts: Functions, conditional statements, DOM manipulation, event listeners, input validation.
+ 
+ 
+2. Assignment 2: Interactive To-Do List Manager
+Objective: Build a task management webpage where users can add, complete, and delete tasks.
+Requirements:
+A. Create a text field and an Add Task button.
+B. Display new tasks dynamically in a list.
+C. Provide a checkbox to mark a task as completed.
+D. Apply a strikethrough style to completed tasks.
+E. Add a Delete button beside each task.
+F. Display the total number of tasks and completed tasks.
+G. Use CSS to style the task list, buttons, and completed items.
+
+JavaScript concepts: Arrays, DOM manipulation, createElement(), event handling, functions.

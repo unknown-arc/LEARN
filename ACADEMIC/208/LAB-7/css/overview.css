@@ -1,0 +1,9 @@
+.fs{position:absolute;left:calc(var(--x)/1234*100%);top:calc(var(--y)/864*100%);width:calc(var(--w)/1234*100%);aspect-ratio:var(--w)/var(--h);
+  translate:-50% -50%;rotate:-20deg;border-radius:50%;background:radial-gradient(closest-side,rgba(55,35,15,.42),rgba(55,35,15,.18) 60%,transparent);filter:blur(5px);pointer-events:none}
+.hint{position:fixed;left:50%;bottom:16px;translate:-50% 0;z-index:50;padding:9px 18px;background:rgba(255,250,240,.93);border:2px solid var(--ink);border-radius:99px;
+  box-shadow:0 4px 0 rgba(59,47,38,.25);font-size:15px;white-space:nowrap;animation:enter 1.2s .6s both}
+.hint b{color:#c0610a}
+.obj[data-id=desk],.obj[data-id=board]{--z:3}
+.obj[data-id=clock] img,.obj[data-id=frame] img,.obj[data-id=shelf] img,.obj[data-id=board] img{--sx:5px;--sy:7px;--sb:6px}
+.stage.zoom .marker,.stage.zoom+.hint{opacity:0}
+@media (max-width:700px){.hint{white-space:normal;text-align:center;width:calc(100% - 24px);font-size:13px}}
