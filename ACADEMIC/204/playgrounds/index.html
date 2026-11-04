@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>204 Playground | TROAL</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="head"><a href="../index.html">← COMPUTER ORGANIZATION</a><strong id="lab-name">LAB PLAYGROUND</strong><span class="tag">TROAL / 204</span></header>
+<main class="layout">
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="task">TASK</button>
+    <button data-tab="circuit">ARCHITECTURE / SOLUTION</button>
+    <button data-tab="github">GITHUB</button>
+    <button data-tab="other">OTHER FILES</button>
+  </nav>
+  <section class="content">
+    <article class="pane active" id="task-pane"><div class="pane-title"><span>01 / TASK</span><h1>Lab Instructions</h1></div><div id="task-content" class="task markdown">Loading task...</div></article>
+    <article class="pane" id="circuit-pane"><div class="pane-title"><span>02 / CIRCUIT VIEWER</span><h1>Architecture / Solution</h1></div><p class="hint">Select a circuit file to inspect its components and connections. Download the original .circ file to open and simulate it in Logisim Evolution.</p><div id="circuit-list" class="file-list"></div><div id="circuit-view" class="circuit-view"><p>Select a circuit file above.</p></div></article>
+    <article class="pane" id="github-pane"><div class="pane-title"><span>03 / SOURCE</span><h1>GitHub Repository</h1></div><p>Browse the original lab files and project history.</p><a id="github-url" class="big-link" target="_blank" rel="noopener">OPEN LAB ON GITHUB ↗</a></article>
+    <article class="pane" id="other-pane"><div class="pane-title"><span>04 / RESOURCES</span><h1>Other Files</h1></div><div id="other-list" class="file-list"></div></article>
+  </section>
+</main>
+<script src="playground.js"></script>
+</body></html>
