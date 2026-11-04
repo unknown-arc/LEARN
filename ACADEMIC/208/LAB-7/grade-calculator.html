@@ -3,13 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Grade Calculator — Desk Quest</title>
+<title>[ARC] Practice set | LAB - 7</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/calculator.css">
 </head>
 <body class="calc">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4"/></filter></svg>
 <div class="backdrop" style="background-image:url(assets/calc/table.jpg)"></div>
 <main class="stage" id="stage">
   <img class="bg" src="assets/calc/table.jpg" alt="" width="1234" height="864">
@@ -43,9 +44,8 @@
   <!-- ===== New sheet: Assignment 1 form ===== -->
   <section class="panel sheet" id="sheet" hidden aria-labelledby="sheetTitle">
     <button class="x" type="button" data-close aria-label="Close sheet">&times;</button>
-    <span class="tape" aria-hidden="true"></span>
-    <h2 id="sheetTitle">Student Grade Sheet</h2>
-    <p class="meta">CDA 208 · Lab-7 · Assignment 1</p>
+        <h2 id="sheetTitle">Student Grade Sheet</h2>
+    <p class="meta"><span>CDA 208 · Lab-7 · Assignment 1</span><span class="date" id="today"></span></p>
     <form id="gradeForm" novalidate>
       <div class="field">
         <label for="sname">Student name</label>
@@ -68,8 +68,7 @@
   <!-- ===== History ===== -->
   <section class="panel sheet" id="history" hidden aria-labelledby="histTitle">
     <button class="x" type="button" data-close aria-label="Close history">&times;</button>
-    <span class="tape" aria-hidden="true"></span>
-    <h2 id="histTitle">Previous Calculations</h2>
+        <h2 id="histTitle">Previous Calculations</h2>
     <p class="meta" id="histMeta"></p>
     <ul class="hist" id="histList"></ul>
     <div class="actions"><button class="btn" type="button" id="newFromHist">New sheet</button><button class="btn ghost" type="button" id="clearHist">Clear all</button></div>

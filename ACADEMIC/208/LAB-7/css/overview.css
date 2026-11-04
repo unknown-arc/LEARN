@@ -1,9 +1,31 @@
-.fs{position:absolute;left:calc(var(--x)/1234*100%);top:calc(var(--y)/864*100%);width:calc(var(--w)/1234*100%);aspect-ratio:var(--w)/var(--h);
-  translate:-50% -50%;rotate:-20deg;border-radius:50%;background:radial-gradient(closest-side,rgba(55,35,15,.42),rgba(55,35,15,.18) 60%,transparent);filter:blur(5px);pointer-events:none}
-.hint{position:fixed;left:50%;bottom:16px;translate:-50% 0;z-index:50;padding:9px 18px;background:rgba(255,250,240,.93);border:2px solid var(--ink);border-radius:99px;
-  box-shadow:0 4px 0 rgba(59,47,38,.25);font-size:15px;white-space:nowrap;animation:enter 1.2s .6s both}
-.hint b{color:#c0610a}
-.obj[data-id=desk],.obj[data-id=board]{--z:3}
-.obj[data-id=clock] img,.obj[data-id=frame] img,.obj[data-id=shelf] img,.obj[data-id=board] img{--sx:5px;--sy:7px;--sb:6px}
+body.overview{--sw:max(min(90vw,calc(100svh*1.2)),640px);background:#8a8b87}
+.overview .stage{margin-top:max(0px,calc((100svh - var(--sw)*.7002)/2 - 3svh))}
+.rig{position:absolute;inset:0;animation:float 7s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-.8%)}}
+
+/* ground shadow under the floating room (same look as the reference render) */
+.gshadow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:brightness(0) blur(26px);opacity:.34;
+  transform-origin:50% 100%;transform:translate(-1%,7.5%) scale(.97,.97);animation:gpulse 7s ease-in-out infinite}
+@keyframes gpulse{50%{opacity:.26;transform:translate(-1%,8.5%) scale(.95,.95)}}
+
+/* the realistic render is the room; it softly dims while an object is picked */
+.scene{transition:filter .35s}
+.rig.focus .scene{filter:brightness(.78) saturate(.9)}
+
+/* cutouts sit exactly on top of the render and are hidden until picked */
+.overview #objects>.obj{animation:none;pointer-events:none;translate:none}
+.overview .obj img{opacity:0;filter:none;transform-origin:50% 60%;
+  transition:opacity .18s,transform .4s cubic-bezier(.2,.9,.3,1.35),filter .3s}
+.overview .obj.hot img,.overview .obj:focus-visible img{opacity:1;transform:scale(var(--hs,1.07));
+  filter:drop-shadow(1.5px 0 0 #fff) drop-shadow(-1.5px 0 0 #fff) drop-shadow(0 1.5px 0 #fff) drop-shadow(0 -1.5px 0 #fff)
+         drop-shadow(0 0 14px rgba(255,200,90,.75)) drop-shadow(10px 20px 14px rgba(0,0,0,.45))}
+.overview .obj.hot{--z:8}
+.overview .obj.wiggle img{animation:wiggle .5s ease}
+.obj[data-id=clock]{--hs:1.16}.obj[data-id=frame]{--hs:1.1}.obj[data-id=trash]{--hs:1.1}.obj[data-id=desk]{--hs:1.06}.obj[data-id=cabinet]{--hs:1.05}
+.stage.pick{cursor:pointer}
+
+.hint{position:fixed;left:50%;bottom:18px;translate:-50% 0;z-index:50;padding:10px 18px;background:var(--glass);color:var(--ink);border:1px solid var(--line);border-radius:4px;
+  backdrop-filter:blur(10px);font:600 13px/1 var(--hud);letter-spacing:.16em;text-transform:uppercase;white-space:nowrap;box-shadow:0 8px 22px rgba(0,0,0,.2);animation:enter 1.2s .6s both}
+.hint b{color:var(--accent-ink)}
 .stage.zoom .marker,.stage.zoom+.hint{opacity:0}
-@media (max-width:700px){.hint{white-space:normal;text-align:center;width:calc(100% - 24px);font-size:13px}}
+@media (max-width:700px){.hint{white-space:normal;text-align:center;width:calc(100% - 24px);font-size:11px;line-height:1.4}}

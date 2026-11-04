@@ -1,6 +1,6 @@
 /* Assignment 2 — Interactive To-Do List Manager (sticky notes on a cork board) */
 (function(){
-  DQ.initHUD({home:true});
+  DQ.initHUD({home:true,visit:{id:'todo',name:'To-Do Board'}});
   const list=document.getElementById('taskList'),form=document.getElementById('addForm'),input=document.getElementById('taskInput'),errBox=document.getElementById('taskErr');
   const totalEl=document.getElementById('total'),doneEl=document.getElementById('doneCount'),prog=document.getElementById('prog');
   const st=DQ.state.stats;
@@ -9,8 +9,8 @@
   let tasks=DQ.state.todos;                       // [{id,text,done,note,rot,xp}]
   // sticky-note artwork: [file,width,height] — the right size is chosen from the text length
   const NOTES={n01:[179,272],n02:[149,157],n03:[124,153],n04:[173,179],n05:[127,157],n06:[199,139],n07:[267,199],n08:[240,105],n09:[131,160],n10:[100,270],n11:[188,266],n12:[159,161]};
-  const POOLS={s:['02','03','05','09','12'],m:['04','06','08','12','02'],l:['07','01','11']};
-  function sizeClass(t){return t.length<=12?'s':t.length<=34?'m':'l'}
+  const POOLS={s:['02','03','05','09','12'],m:['04','06','08','12'],l:['07','01','11']};
+  function sizeClass(t){return t.length<=10?'s':t.length<=20?'m':'l'}
   function makeTask(text){
     const pool=POOLS[sizeClass(text)];
     return {id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),text:text,done:false,
@@ -47,17 +47,17 @@
 
   function renderAll(){
     list.innerHTML='';
-    tasks.forEach(t=>list.appendChild(createNote(t,false)));
+    tasks.forEach((t,i)=>{const li=createNote(t,false);li.style.setProperty('--n',i);list.appendChild(li)});
     updateEmpty();updateCounts();
   }
   function updateEmpty(){
     let e=list.querySelector('.empty');
-    if(tasks.length===0&&!e){e=document.createElement('li');e.className='empty';e.textContent='The board is empty! Write your first task below ↓';list.appendChild(e)}
+    if(tasks.length===0&&!e){e=document.createElement('li');e.className='empty';e.textContent='The board is empty — add your first task below.';list.appendChild(e)}
     else if(tasks.length>0&&e)e.remove();
   }
   function updateCounts(){
     const done=tasks.filter(t=>t.done).length;
-    totalEl.textContent=tasks.length;doneEl.textContent=done;
+    [[totalEl,tasks.length],[doneEl,done]].forEach(([el,v])=>{if(el.textContent!=String(v)){el.textContent=v;el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');setTimeout(()=>el.classList.remove('bump'),250)}});
     prog.style.width=(tasks.length?done/tasks.length*100:0)+'%';
   }
   const persist=()=>{DQ.state.todos=tasks;DQ.save()};
@@ -69,28 +69,25 @@
   }
   function addTask(text,ev){
     text=text.trim();
-    if(text===''){showError('Write something on the note first!');input.focus();return}
+    if(text===''){showError('Enter a task before adding it.');input.focus();return}
     const task=makeTask(text);tasks.push(task);persist();
     updateEmpty();
     const li=createNote(task,true);list.appendChild(li);updateCounts();
     li.scrollIntoView({block:'nearest',behavior:'smooth'});
     DQ.sfx('add');st.added++;DQ.save();
-    DQ.addXP(5,'new sticky note',ev);DQ.unlock('first_task');
   }
   function toggleTask(task,li,checked,ev){
     task.done=checked;li.classList.toggle('done',checked);
     if(checked){
       addStamp(li);DQ.sfx('done');
-      if(!task.xp){task.xp=true;st.done++;DQ.save();const r=li.getBoundingClientRect();DQ.confetti(r.left+r.width/2,r.top+r.height/2,16);DQ.addXP(10,'task completed',{clientX:r.left+r.width/2,clientY:r.top})}
+      if(!task.xp){task.xp=true;st.done++;DQ.save()}
     }else{const s=li.querySelector('.stampdone');if(s)s.remove();DQ.sfx('click')}
     persist();updateCounts();
-    if(st.done>=5)DQ.unlock('five_done');
-    if(tasks.length>=3&&tasks.every(t=>t.done)){DQ.unlock('clean_board');DQ.confetti()}
   }
   function deleteTask(task,li){
     DQ.sfx('del');li.classList.add('rip');
     tasks=tasks.filter(t=>t.id!==task.id);persist();
-    st.deleted++;DQ.save();DQ.unlock('tidy');
+    st.deleted++;DQ.save();
     setTimeout(()=>{li.remove();updateEmpty();updateCounts()},480);
     updateCounts();
   }

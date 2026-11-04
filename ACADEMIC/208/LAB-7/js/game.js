@@ -1,100 +1,99 @@
-/* Desk Quest — shared game layer: state, XP, badges, sound, HUD. Plain script (works from file://). */
+/* Shared layer: saved state, sound, HUD title bar, Explore panel. Plain script (works from file://). */
 (function(){
   const KEY='deskquest.v1';
-  const defaults={xp:0,badges:{},found:{},sound:true,
-    stats:{calcs:0,added:0,done:0,deleted:0,bestPct:0,aCount:0},todos:[],seeded:false,history:[],lastResult:null};
+  const defaults={found:{},sound:true,stats:{calcs:0,added:0,done:0,deleted:0,bestPct:0,aCount:0},todos:[],seeded:false,history:[],lastResult:null};
   let state;
-  try{state=Object.assign({},defaults,JSON.parse(localStorage.getItem(KEY)||'{}'));
-      state.stats=Object.assign({},defaults.stats,state.stats)}catch(e){state=JSON.parse(JSON.stringify(defaults))}
+  try{state=Object.assign({},defaults,JSON.parse(localStorage.getItem(KEY)||'{}'));state.stats=Object.assign({},defaults.stats,state.stats)}
+  catch(e){state=JSON.parse(JSON.stringify(defaults))}
   const DQ=window.DQ={state};
   DQ.save=function(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
 
-  /* ---------- icons ---------- */
+  /* ---------- line icons ---------- */
+  const S='fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"';
   const I={
-    home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" fill="currentColor"/>',
-    trophy:'<path d="M7 3h10v5a5 5 0 0 1-10 0zM4 4h3v3a2 2 0 0 1-3-2zM20 4h-3v3a2 2 0 0 0 3-2zM11 13h2v4h3v3H8v-3h3z" fill="currentColor"/>',
-    sound:'<path d="M4 9v6h4l5 4V5L8 9zM16 8a5 5 0 0 1 0 8M18.5 5.5a9 9 0 0 1 0 13" fill="currentColor" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
-    mute:'<path d="M4 9v6h4l5 4V5L8 9z" fill="currentColor"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
-    calc:'<path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm1 3v4h10V5zm1 7a1.3 1.3 0 1 0 .01 0zm4 0a1.3 1.3 0 1 0 .01 0zm4 0a1.3 1.3 0 1 0 .01 0zM8 16a1.3 1.3 0 1 0 .01 0zm4 0a1.3 1.3 0 1 0 .01 0zm4 0a1.3 1.3 0 1 0 .01 0z" fill="currentColor"/>',
-    pin:'<path d="M14 2l8 8-3 1-4 4 .5 5-2 2-4.5-4.5L3 22l-1-1 4.5-5.5L2 11l2-2 5 .5 4-4z" fill="currentColor"/>',
-    star:'<path d="M12 2l3 7 7.5.6-5.7 4.9 1.8 7.4L12 18l-6.6 3.9 1.8-7.4L1.5 9.6 9 9z" fill="currentColor"/>'
+    home:'<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>',
+    explore:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+    sound:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a9 9 0 0 1 0 12"/>',
+    mute:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l4 6M21 9l-4 6"/>',
+    calc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15h0M8 18h0"/>',
+    pin:'<path d="M9 3h6l-1 6 3 3H7l3-3zM12 12v9"/>',
+    clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    shelf:'<path d="M4 4h16v16H4zM4 12h16M12 4v16"/>',
+    bin:'<path d="M5 7h14M10 7V4h4v3M7 7l1 13h8l1-13"/>',
+    cabinet:'<path d="M3 8h18v12H3zM3 12h18M10 10h4M10 16h4"/>',
+    frame:'<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M8 15c2-5 6-7 9-8-1 4-3 8-9 8z"/>'
   };
-  DQ.icon=n=>'<svg viewBox="0 0 24 24" aria-hidden="true">'+I[n]+'</svg>';
+  DQ.icon=n=>'<svg viewBox="0 0 24 24" '+S+' aria-hidden="true">'+I[n]+'</svg>';
 
-  /* ---------- sound (tiny WebAudio blips) ---------- */
+  /* ---------- sound ---------- */
   let ac;
-  function tone(f,t0,d,type,vol){
-    const o=ac.createOscillator(),g=ac.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,ac.currentTime+t0);
-    g.gain.setValueAtTime(0,ac.currentTime+t0);g.gain.linearRampToValueAtTime(vol||.12,ac.currentTime+t0+.012);
+  function tone(f,t0,d,type,vol){const o=ac.createOscillator(),g=ac.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,ac.currentTime+t0);
+    g.gain.setValueAtTime(0,ac.currentTime+t0);g.gain.linearRampToValueAtTime(vol||.09,ac.currentTime+t0+.01);
     g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+t0+d);o.connect(g).connect(ac.destination);o.start(ac.currentTime+t0);o.stop(ac.currentTime+t0+d+.02)}
-  const S={click:[[520,0,.08,'triangle']],pop:[[380,0,.06,'square',.07],[700,.05,.09,'triangle']],
-    ding:[[880,0,.2,'sine'],[1320,.09,.3,'sine']],add:[[330,0,.07,'square',.07],[660,.06,.14,'triangle']],
-    done:[[523,0,.1,'triangle'],[659,.08,.1,'triangle'],[784,.16,.2,'triangle']],
-    del:[[400,0,.08,'sawtooth',.06],[220,.07,.14,'sawtooth',.06]],err:[[160,0,.18,'sawtooth',.09],[140,.1,.18,'sawtooth',.09]],
-    level:[[523,0,.12,'triangle'],[659,.1,.12,'triangle'],[784,.2,.12,'triangle'],[1047,.3,.4,'triangle']],
-    stamp:[[120,0,.18,'square',.16],[90,.02,.25,'sawtooth',.08]],whoosh:[[300,0,.3,'sine',.06],[600,.1,.3,'sine',.05]]};
-  DQ.sfx=function(n){ if(!state.sound||!S[n])return; try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();S[n].forEach(a=>tone(a[0],a[1],a[2],a[3],a[4]))}catch(e){} };
+  const SFX={click:[[620,0,.05,'sine',.07]],pop:[[420,0,.05,'sine',.07],[640,.04,.08,'sine',.06]],ding:[[880,0,.18,'sine'],[1320,.08,.26,'sine']],
+    add:[[360,0,.06,'triangle',.07],[620,.05,.1,'triangle',.07]],done:[[523,0,.09,'sine'],[659,.07,.09,'sine'],[784,.14,.18,'sine']],
+    del:[[320,0,.07,'triangle',.06],[200,.06,.12,'triangle',.06]],err:[[170,0,.16,'sawtooth',.05],[150,.09,.16,'sawtooth',.05]],
+    stamp:[[110,0,.16,'square',.1],[80,.02,.2,'sawtooth',.05]],whoosh:[[300,0,.3,'sine',.05],[560,.1,.3,'sine',.04]]};
+  DQ.sfx=function(n){if(!state.sound||!SFX[n])return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();SFX[n].forEach(a=>tone(a[0],a[1],a[2],a[3],a[4]))}catch(e){}};
 
-  /* ---------- levels / xp ---------- */
-  const TITLES=['Rookie Student','Note Taker','Desk Warrior','Study Ninja','Honor Scholar','Grand Scholar'];
-  DQ.levelInfo=function(xp){let l=1,need=100,rest=xp;while(rest>=need){rest-=need;l++;need=100+(l-1)*50}return{level:l,into:rest,need,title:TITLES[Math.min(l-1,TITLES.length-1)]}};
-  DQ.toast=function(html,cls){const w=document.querySelector('.toasts');if(!w)return;const t=document.createElement('div');t.className='toast '+(cls||'');t.innerHTML=html;w.appendChild(t);setTimeout(()=>t.remove(),2700)};
-  DQ.addXP=function(n,why,ev,quiet){
-    const before=DQ.levelInfo(state.xp).level;state.xp+=n;DQ.save();
-    if(!quiet)DQ.toast('<span class="xp">+'+n+' XP</span> '+(why||''));
-    if(ev&&ev.clientX!=null){const f=document.createElement('div');f.className='floatxp';f.textContent='+'+n;f.style.left=ev.clientX+'px';f.style.top=ev.clientY+'px';document.body.appendChild(f);setTimeout(()=>f.remove(),1300)}
-    const after=DQ.levelInfo(state.xp).level;DQ.renderHUD();
-    if(after>before){DQ.sfx('level');DQ.confetti();const L=document.createElement('div');L.className='levelup';
-      L.innerHTML='<div>LEVEL UP!<small>Level '+after+' · '+DQ.levelInfo(state.xp).title+'</small></div>';document.body.appendChild(L);setTimeout(()=>L.remove(),2300)}
-  };
-  DQ.confetti=function(x,y,n){x=x==null?innerWidth/2:x;y=y==null?innerHeight/2:y;const cols=['#ff6b6b','#ffd36b','#6fd17b','#5aa9ff','#c58bff'];
-    for(let i=0;i<(n||36);i++){const c=document.createElement('i');c.className='confetti';c.style.left=x+'px';c.style.top=y+'px';c.style.background=cols[i%5];document.body.appendChild(c);
-      const a=Math.random()*Math.PI*2,v=120+Math.random()*260;
-      c.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${Math.cos(a)*v}px,${Math.sin(a)*v+260}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:1100+Math.random()*700,easing:'cubic-bezier(.2,.7,.4,1)'}).onfinish=()=>c.remove()}};
+  DQ.toast=function(title,text){const w=document.querySelector('.toasts');if(!w)return;const t=document.createElement('div');t.className='toast';
+    t.innerHTML='<b></b><span></span>';t.querySelector('b').textContent=title;t.querySelector('span').textContent=text||'';w.appendChild(t);setTimeout(()=>t.remove(),3100)};
 
-  /* ---------- badges ---------- */
-  const BADGES={
-    first_sheet:['First Sheet','Calculate your first result','✎'],honor_roll:['Honor Roll','Earn an A grade','★'],
-    perfect:['Perfectionist','Score 100%','♛'],hat_trick:['Hat-trick','Calculate 3 results','3'],
-    first_task:['Sticky Starter','Add your first task','＋'],five_done:['Board Boss','Complete 5 tasks','✔'],
-    clean_board:['Clean Slate','Finish every task (3+)','✿'],tidy:['Tidy Up','Delete a task','✂'],
-    explorer:['Room Explorer','Find all 5 secrets in the room','⌕']};
-  DQ.BADGES=BADGES;
-  DQ.unlock=function(id){if(state.badges[id]||!BADGES[id])return;state.badges[id]=Date.now();DQ.save();DQ.sfx('ding');
-    DQ.toast('🏅 Badge: <b>'+BADGES[id][0]+'</b> · +15 XP','badge');DQ.addXP(15,'',null,true);DQ.renderHUD()};
-  DQ.openBadges=function(){const m=document.getElementById('badgeModal');const g=m.querySelector('.badges');g.innerHTML='';
-    Object.keys(BADGES).forEach(k=>{const b=BADGES[k],d=document.createElement('div');d.className='badge'+(state.badges[k]?'':' locked');
-      d.innerHTML='<div class="ico">'+b[2]+'</div><b>'+b[0]+'</b><span>'+b[1]+'</span>';g.appendChild(d)});
-    m.classList.add('open');m.querySelector('button.close').focus()};
-  DQ.found=function(id,total){if(state.found[id])return false;state.found[id]=1;DQ.save();const n=Object.keys(state.found).length;
-    DQ.addXP(5,'secret found '+n+'/'+total);if(n>=total)DQ.unlock('explorer');return true};
+  /* ---------- Explore ---------- */
+  const PLACES=[
+    {id:'calc',name:'Grade Calculator',desc:'Assignment 1 · total, percentage and grade',url:'grade-calculator.html',icon:'calc'},
+    {id:'todo',name:'To-Do Board',desc:'Assignment 2 · add, complete and delete tasks',url:'todo.html',icon:'pin'}];
+  const SECRETS=[
+    {id:'clock',name:'Wall Clock',desc:'Check the time without leaving your desk.',icon:'clock'},
+    {id:'shelf',name:'Wall Shelf',desc:'Opens the Explore panel.',icon:'shelf'},
+    {id:'trash',name:'Waste Bin',desc:'Keeps count of every task you delete.',icon:'bin'},
+    {id:'cabinet',name:'Storage Unit',desc:'Your activity log for this session.',icon:'cabinet'},
+    {id:'frame',name:'Framed Print',desc:'A quote to keep you going.',icon:'frame'}];
+  DQ.TOTAL=PLACES.length+SECRETS.length;
+  DQ.foundCount=()=>Object.keys(state.found).length;
+  DQ.discover=function(id,label){if(state.found[id])return false;state.found[id]=Date.now();DQ.save();
+    DQ.toast('Discovered',label+'  ·  '+DQ.foundCount()+' / '+DQ.TOTAL);DQ.sfx('ding');DQ.renderHUD();return true};
+  function row(o,isPlace){
+    const on=!!state.found[o.id],li=document.createElement('li');li.className='xitem'+(on||isPlace?' on':'');
+    const ic=document.createElement('div');ic.className='ic';ic.innerHTML=DQ.icon(on||isPlace?o.icon:'explore');
+    const mid=document.createElement('div');const b=document.createElement('b'),s=document.createElement('small');
+    b.textContent=on||isPlace?o.name:'Undiscovered';s.textContent=on||isPlace?o.desc:'Look around the room — something is hidden here.';mid.append(b,s);
+    li.append(ic,mid);
+    if(isPlace){const a=document.createElement('a');a.className='go';a.href=o.url;a.textContent=on?'Open':'Enter';li.appendChild(a)}
+    else{const st=document.createElement('span');st.className='st';st.textContent=on?'Discovered':'Locked';li.appendChild(st)}
+    return li}
+  DQ.openExplore=function(){const m=document.getElementById('exploreModal'),n=DQ.foundCount();
+    m.querySelector('.meter i').style.width=(n/DQ.TOTAL*100)+'%';m.querySelector('.count').textContent=n+' / '+DQ.TOTAL+' discovered';
+    const L=m.querySelector('#xPlaces'),T=m.querySelector('#xSecrets');L.innerHTML='';T.innerHTML='';
+    PLACES.forEach(p=>L.appendChild(row(p,true)));SECRETS.forEach(p=>T.appendChild(row(p,false)));
+    m.classList.add('open');m.querySelector('button.close').focus({preventScroll:true});m.querySelector('.explore').scrollTop=0};
 
   /* ---------- HUD ---------- */
-  DQ.renderHUD=function(){const li=DQ.levelInfo(state.xp),h=document.querySelector('.hud');if(!h)return;
-    h.querySelector('.lvl').textContent=li.level;h.querySelector('.ptitle').textContent=li.title;
-    h.querySelector('.xpbar i').style.width=(li.into/li.need*100)+'%';h.querySelector('.xptext').textContent=li.into+' / '+li.need+' XP';
-    h.querySelector('.count').textContent=Object.keys(state.badges).length;
+  DQ.renderHUD=function(){const h=document.querySelector('.hud');if(!h)return;
+    const c=h.querySelector('#exploreBtn em');if(c)c.textContent=DQ.foundCount()+'/'+DQ.TOTAL;
     const s=h.querySelector('.snd');s.innerHTML=DQ.icon(state.sound?'sound':'mute');s.classList.toggle('off',!state.sound)};
   DQ.initHUD=function(opts){opts=opts||{};
     const hud=document.createElement('header');hud.className='hud';
-    hud.innerHTML='<div class="player"><div class="lvl">1</div><div class="pinfo"><span class="ptitle"></span><div class="xpbar"><i></i></div><span class="xptext"></span></div></div>'+
-      '<div class="hbtns">'+(opts.home?'<a class="ibtn" href="index.html" id="homeBtn" aria-label="Back to the room" title="Back to the room">'+DQ.icon('home')+'</a>':'')+
-      '<button class="ibtn" id="badgeBtn" aria-label="Badges" title="Badges">'+DQ.icon('trophy')+'<span class="count">0</span></button>'+
-      '<button class="ibtn snd" id="sndBtn" aria-label="Toggle sound" title="Sound"></button></div>';
+    hud.innerHTML='<div class="titlebar"><span class="tag">[ARC]</span><span>Practice set</span><span class="sep">|</span><span>LAB - 7</span></div>'+
+      '<nav class="hbtns">'+(opts.home?'<a class="hbtn" href="index.html" id="homeBtn" aria-label="Back to the room" title="Back to the room">'+DQ.icon('home')+'<span>Room</span></a>':'')+
+      '<button class="hbtn" id="exploreBtn" aria-label="Explore" title="Explore">'+DQ.icon('explore')+'<span>Explore</span><em>0/0</em></button>'+
+      '<button class="hbtn snd" id="sndBtn" aria-label="Toggle sound" title="Sound"></button></nav>';
     document.body.append(hud);
     const tw=document.createElement('div');tw.className='toasts';tw.setAttribute('aria-live','polite');document.body.append(tw);
-    const m=document.createElement('div');m.className='modal';m.id='badgeModal';
-    m.innerHTML='<div class="card" role="dialog" aria-label="Badges"><h2>Your Badges</h2><p class="sub">Unlock them by using the room!</p><div class="badges"></div><button class="btn close">Close</button></div>';
+    const m=document.createElement('div');m.className='modal';m.id='exploreModal';
+    m.innerHTML='<div class="explore" role="dialog" aria-label="Explore"><h2>Explore</h2><p class="sub">Find every location and hidden object in the study room.</p>'+
+      '<div class="meter"><i></i></div><div class="count"></div><h3>Locations</h3><ul class="xlist" id="xPlaces"></ul><h3>Hidden objects</h3><ul class="xlist" id="xSecrets"></ul>'+
+      '<button class="btn close" type="button">Close</button></div>';
     document.body.append(m);
     m.addEventListener('click',e=>{if(e.target===m||e.target.classList.contains('close'))m.classList.remove('open')});
     document.addEventListener('keydown',e=>{if(e.key==='Escape')m.classList.remove('open')});
-    hud.querySelector('#badgeBtn').onclick=()=>{DQ.sfx('click');DQ.openBadges()};
+    hud.querySelector('#exploreBtn').onclick=()=>{DQ.sfx('click');DQ.openExplore()};
     hud.querySelector('#sndBtn').onclick=()=>{state.sound=!state.sound;DQ.save();DQ.renderHUD();DQ.sfx('click')};
     const f=document.createElement('div');f.className='fade';document.body.append(f);DQ.fade=f;
+    if(opts.visit)DQ.discover(opts.visit.id,opts.visit.name);
     DQ.renderHUD();
     addEventListener('pageshow',e=>{if(e.persisted){f.classList.remove('on');document.querySelector('.stage')?.classList.remove('zoom')}});
   };
   DQ.go=function(url,stage,origin){DQ.sfx('whoosh');if(stage&&origin){stage.style.transformOrigin=origin;stage.classList.add('zoom')}
     setTimeout(()=>DQ.fade.classList.add('on'),380);setTimeout(()=>{location.href=url},820)};
-  DQ.pad=n=>String(n).padStart(2,'0');
 })();

@@ -1,10 +1,11 @@
 /* Assignment 1 — Interactive Student Grade Calculator (+ gamified desk scene) */
 (function(){
-  DQ.initHUD({home:true});
+  DQ.initHUD({home:true,visit:{id:'calc',name:'Grade Calculator'}});
   const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
   const stage=$('#stage'),sheet=$('#sheet'),history=$('#history'),form=$('#gradeForm'),resultBox=$('#result'),bubble=$('#bubble'),lcd=$('#lcd');
   const calcObj=$('[data-id=calculator]');
   const MAX=100,SUBJECTS=3;
+  $('#today').textContent=new Date().toLocaleDateString([],{day:'numeric',month:'short',year:'numeric'});
 
   /* ---------- core logic (Assignment 1 requirements) ---------- */
   function getGrade(pct){            // A 80-100, B 60-79, C 40-59, F below 40
@@ -13,7 +14,7 @@
     if(pct>=40)return 'C';
     return 'F';
   }
-  const REMARKS={A:'Outstanding work! 🌟',B:'Great job — keep climbing!',C:'You passed — a bit more practice!',F:'Don\'t give up — try again!'};
+  const REMARKS={A:'Outstanding work.',B:'Great job — keep climbing.',C:'You passed — a little more practice will help.',F:'Not yet — review and try again.'};
   const COLORS={A:'#4caf62',B:'#4a90d9',C:'#f0a020',F:'#e5533d'};
   function validateMark(raw){        // returns error text or '' (empty = valid)
     if(raw.trim()==='')return 'Please enter the marks.';
@@ -55,7 +56,7 @@
     resultBox.hidden=false;
     resultBox.innerHTML=
       '<div class="stamp g-'+r.grade+'" aria-label="Grade '+r.grade+'">'+r.grade+'</div>'+
-      '<h3>'+esc(r.name)+'</h3>'+
+      '<h3>Result</h3><div class="who">'+esc(r.name)+'</div>'+
       '<div class="line"><div class="stat"><small>Total marks</small><b>'+fmt(r.total)+' / '+(MAX*SUBJECTS)+'</b></div>'+
       '<div class="stat"><small>Percentage</small><b>'+fmt(r.pct)+'%</b></div></div>'+
       '<div class="bar"><i style="background:'+COLORS[r.grade]+'"></i></div>'+
@@ -76,15 +77,12 @@
   /* ---------- submit ---------- */
   form.addEventListener('submit',e=>{
     e.preventDefault();
-    if(!validateAll()){DQ.sfx('err');say('Check the highlighted fields ✏️',calcObj);return}
+    if(!validateAll()){DQ.sfx('err');say('<b>Check the form</b>Some fields need attention.',calcObj);return}
     const r=computeResult(),st=DQ.state.stats;
     showResult(r,true);lcdShow(fmt(r.pct),true);
     DQ.state.history.unshift(r);DQ.state.history=DQ.state.history.slice(0,30);DQ.state.lastResult=r;
     st.calcs++;if(r.grade==='A')st.aCount++;if(r.pct>st.bestPct)st.bestPct=r.pct;DQ.save();
-    DQ.addXP(r.grade==='A'?30:20,r.grade==='A'?'result + grade A bonus':'result calculated');
-    if(r.grade==='A'){DQ.unlock('honor_roll');DQ.confetti()}
-    if(r.pct===100)DQ.unlock('perfect');
-    DQ.unlock('first_sheet');if(st.calcs>=3)DQ.unlock('hat_trick');
+    DQ.sfx(r.grade==='F'?'del':'done');
   });
   form.addEventListener('reset',()=>{setTimeout(()=>{$$('#gradeForm input').forEach(i=>setError(i,''));resultBox.hidden=true;DQ.sfx('click');$('#sname').focus()},0)});
   // live validation: clear the error as soon as the value becomes valid; check marks when leaving a field
@@ -108,7 +106,7 @@
 
   function renderHistory(){
     const list=$('#histList'),h=DQ.state.history;list.innerHTML='';
-    $('#histMeta').textContent=h.length?h.length+' saved · tap one to view it again':'';
+    $('#histMeta').textContent=h.length?h.length+' saved':'';
     if(!h.length){const li=document.createElement('li');li.className='empty';li.style.display='block';li.textContent='Nothing here yet — click the blank paper stack to write your first sheet!';list.appendChild(li);return}
     h.forEach((r,idx)=>{
       const li=document.createElement('li');
@@ -132,8 +130,8 @@
     bubble.innerHTML=html;bubble.style.setProperty('--bx',x+w/2);bubble.style.setProperty('--by',y-6);bubble.classList.add('show');clearTimeout(bt);if(ms!==0)bt=setTimeout(()=>bubble.classList.remove('show'),ms||3200)}
   const hide=()=>bubble.classList.remove('show');
   function wiggle(el){el.classList.remove('wiggle');void el.offsetWidth;el.classList.add('wiggle')}
-  const TIPS=['Study tip: 25 min focus, 5 min break.','Always double-check your marks!','A tidy desk is a tidy mind ✏️','Tip: press Esc to close a sheet.'];
-  const hover={papers:'<b>New sheet</b><br>Write a fresh result',documents:'<b>Previous results</b><br>See your history',calculator:'<b>Calculator</b><br>Tap to calculate'};
+  const TIPS=['25 minutes of focus, then a 5 minute break.','Always double-check your marks before calculating.','A tidy desk makes for a clear head.','Press Esc to close a sheet.'];
+  const hover={papers:'<b>New sheet</b>Write a fresh result',documents:'<b>Previous results</b>Review your history',calculator:'<b>Calculator</b>Select to calculate'};
   Object.keys(hover).forEach(k=>{const el=$('[data-id='+k+']');
     el.addEventListener('pointerenter',()=>say(hover[k],el,0));el.addEventListener('focus',()=>say(hover[k],el,0));
     el.addEventListener('pointerleave',hide);el.addEventListener('blur',hide)});
@@ -142,15 +140,15 @@
   calcObj.addEventListener('click',e=>{
     wiggle(calcObj);DQ.sfx('click');
     if(!sheet.hidden){form.requestSubmit()}
-    else{say('Fill in a sheet first!<br>Opening one for you…',calcObj);setTimeout(()=>{hide();open(sheet,$('[data-id=papers]'))},650)}
+    else{say('<b>No sheet open</b>Opening a new one for you.',calcObj);setTimeout(()=>{hide();open(sheet,$('[data-id=papers]'))},650)}
   });
-  $('[data-id=lamp]').addEventListener('click',()=>{const on=stage.classList.toggle('lamp-on');DQ.sfx(on?'ding':'click');say(on?'Lamp on 💡 cosy mode':'Lamp off ☀️',$('[data-id=lamp]'),1800)});
-  $('[data-id=pencup]').addEventListener('click',e=>{const el=e.currentTarget;wiggle(el);DQ.sfx('pop');say(TIPS[Math.floor(Math.random()*TIPS.length)],el)});
-  $('[data-id=notes]').addEventListener('click',e=>{const el=e.currentTarget;wiggle(el);DQ.sfx('pop');say('<b>Grade key</b><br>A 80–100 · B 60–79<br>C 40–59 · F below 40',el,4500)});
+  $('[data-id=lamp]').addEventListener('click',()=>{const on=stage.classList.toggle('lamp-on');DQ.sfx(on?'ding':'click');say(on?'<b>Desk lamp</b>Night mode on':'<b>Desk lamp</b>Night mode off',$('[data-id=lamp]'),1800)});
+  $('[data-id=pencup]').addEventListener('click',e=>{const el=e.currentTarget;wiggle(el);DQ.sfx('pop');say('<b>Study tip</b>'+TIPS[Math.floor(Math.random()*TIPS.length)],el)});
+  $('[data-id=notes]').addEventListener('click',e=>{const el=e.currentTarget;wiggle(el);DQ.sfx('pop');say('<b>Grade key</b>A 80–100 · B 60–79<br>C 40–59 · F below 40',el,4500)});
   ['clip1','clip2'].forEach(id=>$('[data-id='+id+']').addEventListener('click',e=>{wiggle(e.currentTarget);DQ.sfx('click')}));
 
   // markers
-  [['papers','star'],['documents','trophy'],['calculator','calc']].forEach(([k,ic])=>{$('#mk-'+k).innerHTML=DQ.icon(ic)});
+  [['papers','New sheet'],['documents','History'],['calculator','Calculate']].forEach(([k,t])=>{$('#mk-'+k).innerHTML='<div class="tag"><i class="dot"></i><span>'+t+'</span></div><i class="stem"></i>'});
 
   // sunlight particles from the window onto the desk
   new Dust($('#dust'),{count:75,poly:[[360,130],[930,130],[1090,560],[230,660]],sparkles:[[560,520,100],[430,590,70],[760,470,60]]});
