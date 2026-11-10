@@ -1,2 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 :root{--ink:#171717;--paper:#f7f5ef;--pink:#ff8fc7;--lime:#c8f169;--blue:#9bd8ff}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'Space Grotesk',sans-serif}.head{height:58px;border-bottom:3px solid var(--ink);display:flex;align-items:center;justify-content:space-between;padding:0 22px;gap:12px;font-size:11px}.head a{font-weight:700;text-decoration:none}.head strong{font-size:13px}.tag{background:var(--pink);border:2px solid var(--ink);padding:6px 9px;font-weight:700}.layout{max-width:1100px;margin:auto;padding:28px 24px 70px}.tabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:3px solid var(--ink);padding-bottom:12px}.tabs button{font:700 11px 'Space Grotesk';padding:11px 14px;background:white;border:2px solid var(--ink);cursor:pointer}.tabs button.active{background:var(--ink);color:white}.content{padding-top:26px}.pane{display:none}.pane.active{display:block}.pane-title{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:20px}.pane-title span{font-size:10px;font-weight:700;letter-spacing:.14em}.pane-title h1{font-size:clamp(27px,5vw,44px);letter-spacing:-.06em;margin:7px 0 0}.task{border:2px solid var(--ink);background:white;padding:24px;line-height:1.8;box-shadow:5px 5px 0 var(--ink);max-width:900px}.task h1,.task h2,.task h3{line-height:1.2}.task ul{padding-left:24px}.hint{font-size:13px;line-height:1.6;max-width:850px}.file-list{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}.file-button,.big-link{display:inline-block;background:var(--blue);border:2px solid var(--ink);padding:11px 14px;font:700 11px 'Space Grotesk';text-decoration:none;color:var(--ink);cursor:pointer}.file-button.selected{background:var(--ink);color:white}.circuit-view{border:2px solid var(--ink);background:white;min-height:260px;padding:16px;overflow:auto;box-shadow:5px 5px 0 var(--ink)}.circuit-view svg{max-width:100%;height:auto}.circuit-view pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px}.empty{font-size:13px;color:#555}.big-link{background:var(--lime)}*{scrollbar-width:auto;scrollbar-color:#171717 #dedbd2}::-webkit-scrollbar{width:13px;height:13px}::-webkit-scrollbar-track{background:#dedbd2;border-left:2px solid #171717}::-webkit-scrollbar-thumb{background:#171717;border:2px solid #dedbd2;border-radius:0}@media(max-width:600px){.head{padding:0 10px;font-size:9px}.layout{padding:18px 12px}.head strong{font-size:10px}}
+
+/* ===== Task sheet (render.js) ===== */
+.task{padding:0;overflow:hidden}
+.task>.empty{padding:24px;margin:0}
+.task-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:22px 24px 18px;background:var(--lime);border-bottom:3px solid var(--ink)}
+.task-eyebrow{flex-basis:100%;font-size:10px;font-weight:700;letter-spacing:.14em}
+.task-title{margin:0;font-size:clamp(34px,7vw,64px);line-height:.9;letter-spacing:-.08em}
+.task-title i{font-style:normal;color:#e94da9}
+.task-date{background:white;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:8px 12px;font-size:12px;font-weight:700;transform:rotate(-1.5deg)}
+.task-date b{background:var(--ink);color:white;font-size:9px;letter-spacing:.12em;padding:3px 6px;margin-right:9px}
+.task-section{margin:0;padding:18px 24px 0;font-size:11px;letter-spacing:.14em}
+.task-section span{display:inline-block;background:var(--pink);border:2px solid var(--ink);padding:6px 11px;text-transform:uppercase}
+.task-list{list-style:none;margin:0;padding:16px 24px 24px;display:grid;gap:12px}
+.task-list li{display:flex;gap:14px;align-items:flex-start;border:2px solid var(--ink);background:var(--paper);padding:12px 14px}
+.task-list p{margin:0;font-size:15px;line-height:1.6}
+.task-list strong{background:var(--blue);padding:0 4px;box-shadow:inset 0 -2px 0 var(--ink)}
+.step-no{flex:0 0 auto;min-width:36px;text-align:center;background:var(--ink);color:white;font-size:12px;padding:6px 0}
+.task-list .hint{background:#fff7c2;border-style:dashed}
+.task-list .hint .step-no{background:#ffb86b;color:var(--ink);border:2px solid var(--ink);padding:4px 0}
+.task-list em{font-style:normal;font-size:10px;font-weight:700;letter-spacing:.12em;margin-right:6px}
+.task-note{margin:0 24px 24px;border:2px dashed var(--ink);background:#f3ecff;padding:14px 16px}
+.task-note strong{font-size:10px;letter-spacing:.14em;background:#c7b5ff;border:2px solid var(--ink);padding:3px 7px}
+.task-note p{margin:10px 0 0;font-size:14px;line-height:1.6}
+.task-para{margin:0;padding:16px 24px;line-height:1.7}
+
+/* ===== Tabs: counts ===== */
+.tabs .count{display:inline-block;margin-left:8px;min-width:18px;padding:1px 5px;background:var(--lime);border:2px solid var(--ink);color:var(--ink);font-size:10px;text-align:center}
+.tabs button:focus-visible,.file-button:focus-visible{outline:3px dashed var(--ink);outline-offset:3px}
+
+/* ===== Circuit viewer (circuit.js) ===== */
+.circuit-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.circuit-picker{margin:14px 0 4px}
+.circuit-picker .file-button{background:var(--lime)}
+.circuit-picker .file-button.selected{background:var(--ink)}
+.circuit-stage .empty{margin:12px 0}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.legend-chip{border:2px solid var(--ink);padding:4px 8px;font-size:10px;font-weight:700;letter-spacing:.06em}
+.svg-wrap{overflow:auto;border:2px solid var(--ink);background-color:#fff;background-image:radial-gradient(#d5d1c7 1px,transparent 1px);background-size:10px 10px}
+.circuit-svg{display:block;max-width:none;height:auto}
+.circuit-details{margin-top:14px}
+.circuit-details summary{cursor:pointer;font-weight:700;font-size:12px}
+.inventory{font-size:12px;line-height:1.7}
+
+/* ===== Other files ===== */
+.file-link{display:inline-flex;align-items:center;gap:10px}
+.ext{font-style:normal;font-size:9px;letter-spacing:.1em;background:var(--ink);color:white;padding:3px 6px}
+.ext[data-ext="pdf"]{background:#e94da9}
+.ext[data-ext="png"],.ext[data-ext="jpg"],.ext[data-ext="jpeg"]{background:#2b7fff}
+.ext[data-ext="txt"],.ext[data-ext="md"]{background:#6b6b6b}
+.ext[data-ext="zip"]{background:#d9822b}
+code{background:var(--lime);padding:1px 5px;border:1px solid var(--ink);font-size:.9em}
+
+/* header links keep the ink colour like the rest of the site */
+.head a{color:inherit}

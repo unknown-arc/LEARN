@@ -1,35 +1,36 @@
 # 204 – Computer Organization | TROAL
 
-## Install
-Copy this `204` folder into `ACADEMIC/204/` in the LEARN repository.
-
-## Add your lab files
-Keep each lab in its own folder:
+## Lab folders
+Keep each lab in its own `LAB-n` folder:
 ```text
-204/
+ACADEMIC/204/
   LAB-1/
-    Task.txt
-    your-circuit.circ
-  LAB-2/
-    Task.txt
-    your-circuit.circ
+    Task.txt          -> shown on the TASK tab (render.js)
+    adder.circ        -> shown on ARCHITECTURE / SOLUTION (circuit.js)
+    anything-else.*   -> shown on OTHER FILES (tab only appears if present)
 ```
-The generator also detects nested `.circ` files and additional files.
+Nested `.circ` files are found too. Generated `*.json` files are ignored.
 
-## Generate lab metadata
-Run from this folder:
+## Generate metadata
+Run from the repository root:
 ```bash
-python get_204_labs.py
+python scripts/get_204_labs.py
 ```
-This scans `LAB-*` folders and creates `labs.json`. Commit the generated file along with the site.
+It writes `ACADEMIC/204/labs.json` (the lab folders only) and an `index.json`
+inside every lab (task, circuits, other files). Commit the generated files.
 
 ## GitHub Pages workflow
-Add this command before the Pages artifact upload/build step:
+Add before the Pages build/upload step:
 ```yaml
 - name: Generate Computer Organization labs
-  run: python ACADEMIC/204/get_204_labs.py
+  run: python scripts/get_204_labs.py
 ```
-If your workflow already generates subject JSON files, add this command beside those generators.
 
-## Viewer note
-The playground displays formatted Task.txt, detects circuit components/wires from Logisim XML, lists component attributes, exposes the circuit XML, and provides the original `.circ` download. Full circuit drawing and interactive simulation should be done in Logisim Evolution; this starter viewer does not claim to reproduce Logisim's simulator.
+## Playground files (`ACADEMIC/204/playgrounds/`)
+- `index.html`, `style.css` – the shared playground layout
+- `playground.js` – reads `LAB-n/index.json`, builds the tabs
+- `render.js` – turns `Task.txt` into the designed task sheet
+- `circuit.js` – draws a layout preview of Logisim `.circ` files
+
+The circuit view is a layout preview, not a simulator; use Logisim Evolution
+for exact symbols and simulation.
