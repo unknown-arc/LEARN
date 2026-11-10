@@ -1,0 +1,7 @@
+LAB-1
+
+Date: 25 Aug, 2026
+
+Task:
+* Explore the Logisim interface.
+* Implement all the gates in Logisim.

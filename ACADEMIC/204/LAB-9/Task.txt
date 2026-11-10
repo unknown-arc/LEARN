@@ -1,0 +1,8 @@
+*LAB-9*
+
+Date: *27 Oct, 2026*
+
+*Task:*
+* Implement the *architecture of JK, T & D*
+
+*Note:* Same task as previous due to no submission

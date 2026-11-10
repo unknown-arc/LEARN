@@ -1,0 +1,7 @@
+*LAB-3*
+
+Date: *8 Sept, 2026*
+
+*Task:*
+* Create the *architecture of MUX (Multiplexer)* in Logisim.
+* Hint: It done via HALF ADDER and FULL ADDER.

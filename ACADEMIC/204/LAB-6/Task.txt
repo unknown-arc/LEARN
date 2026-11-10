@@ -1,0 +1,6 @@
+*LAB-6*
+
+Date: *6 Oct, 2026*
+
+*Task:*
+* Implement the *architecture of SR*

@@ -1,0 +1,6 @@
+*LAB-7*
+
+Date: *13 Oct, 2026*
+
+*Task:*
+* Implement the *architecture of SR + JK*

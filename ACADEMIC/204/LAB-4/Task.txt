@@ -1,0 +1,6 @@
+*LAB-4*
+
+Date: *15 Sept, 2026*
+
+*Task:*
+* Implement the *Select lines and Resistor using MUX (Multiplexer)*.

@@ -1,0 +1,6 @@
+*LAB-2*
+
+Date: *1 Sept, 2026*
+
+*Task:*
+* Implement the *architecture of TRUTH table* via gates in Logisim.

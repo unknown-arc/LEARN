@@ -1,0 +1,6 @@
+*LAB-8*
+
+Date: *27 Oct, 2026*
+
+*Task:*
+* Implement the *architecture of JK, T & D*
