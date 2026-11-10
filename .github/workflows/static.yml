@@ -40,6 +40,7 @@ jobs:
       - name: Generate lab data
         run: |
           python scripts/get_202_labs.py
+          python scripts/get_204_labs.py
           python scripts/get_208_labs.py
 
       - name: Setup Pages
